@@ -67,7 +67,7 @@
           const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
           myHeaders.append("token", localStorage.getItem('token'));
-          const raw = JSON.stringify({ custID: localStorage.getItem('username') });
+          const raw = JSON.stringify({ venID: localStorage.getItem('username') });
           const requestOptions = {
               method: 'POST',
               headers: myHeaders,
@@ -80,9 +80,9 @@ fetch("http://localhost:8000/Vendorprofile", requestOptions)
 .then(result => {
 
   const displayname = document.getElementById('displayname');
-  displayname.textContent=`${result.cust_name}`;
+  displayname.textContent=`${result.ven_name}`;
   const displayemail = document.getElementById('displayemail');
-  displayemail.textContent=`${result.cust_email.toLowerCase()}`;
+  displayemail.textContent=`${result.ven_email.toLowerCase()}`;
 })
 .catch(error => console.log('error', error));
 }
@@ -155,51 +155,44 @@ fetch("http://localhost:8000/Vendorprofile", requestOptions)
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="profile1.html">
-          <i class="fa fa-user"></i>
+          <i class="fas fa-fw fa-user"></i>
           <span>Profile</span>
         </a>
        </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
+      
       <li class="nav-item">
-        <a class="nav-link collapsed" href=".html">
-          <i class="fa fa-files-o"></i>
-          <span>Invoice</span>
-        </a>
-        
-      </li>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="credit1.html">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Credit Memo</span>
-        </a>
-       </li>
-
-
-       <li class="nav-item">
         <a class="nav-link" href="quotationdisplay.html">
           <i class="fa fa-question-circle"></i>
           <span>Quotation Display</span>
         </a>
        </li>
 
-
        <li class="nav-item">
-        <a class="nav-link" href=".html">
-          <i class="fa fa-list"></i>
-          <span>Sales Order</span>
+        <a class="nav-link" href="purchaseorder.html">
+          <i class="fa fa-file-text"></i>
+          <span>Purchase Order</span>
         </a>
        </li>
 
-       <li class="nav-item">
-        <a class="nav-link" href=".html">
-          <i class="fa fa-google-wallet"></i>
-          <span>Payment And Aging</span>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="vendorcredit.html">
+          <i class="fas fa-fw fa-file-text"></i>
+          <span>Credit Memo</span>
         </a>
        </li>
 
+
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="goodsreciept.html">
+          <i class="fas fa-fw fa-files-o"></i>
+          <span>Goods Reciept</span>
+        </a>
+      </li>
 
 
 
@@ -234,13 +227,13 @@ fetch("http://localhost:8000/Vendorprofile", requestOptions)
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+              <a href="404.html" <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
+              </a>
               </div>
             </div>
           </form>
-
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -489,8 +482,10 @@ fetch("http://localhost:8000/Vendorprofile", requestOptions)
                                 <div class="section-title text-center pb-10">
                                   <h3 class="title">Kaar Technologies</h3>
                                   <br>  
-                                  <h3 class="title">Our Services</h3>
-                                    <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                                  <h3 class="body">Welcomes You To Vendor Portal</h3>
+                                    <p class="text">Stop wasting time and money in other ERP Solutions that doesn’t get results. Happiness guaranteed!</p>
+                                   <br>
+                                    <h3 class="title">Our Services</h3>
                                 </div> <!-- row -->
                             </div>
                         </div> <!-- row -->

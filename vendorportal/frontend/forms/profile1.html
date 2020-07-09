@@ -264,53 +264,48 @@ setTimeout(() => {
       
 
       <!-- Nav Item - Pages Collapse Menu -->
+     
+      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="profile1.html">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-user"></i>
           <span>Profile</span>
         </a>
        </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
+      
       <li class="nav-item">
-        <a class="nav-link collapsed" href="invoice.html">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Invoice</span>
+        <a class="nav-link" href="quotationdisplay.html">
+          <i class="fa fa-question-circle"></i>
+          <span>Quotation Display</span>
         </a>
-        
-      </li>
+       </li>
+
+       <li class="nav-item">
+        <a class="nav-link" href="purchaseorder.html">
+          <i class="fa fa-file-text"></i>
+          <span>Purchase Order</span>
+        </a>
+       </li>
+
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="credit1.html">
-          <i class="fas fa-fw fa-folder"></i>
+        <a class="nav-link" href="vendorcredit.html">
+          <i class="fas fa-fw fa-file-text"></i>
           <span>Credit Memo</span>
         </a>
        </li>
 
-       
-       <li class="nav-item">
-        <a class="nav-link" href="inquiry.html">
-          <i class="fa fa-question-circle"></i>
-          <span>Inquiry</span>
-        </a>
-       </li>
 
 
        <li class="nav-item">
-        <a class="nav-link" href="salesorder.html">
-          <i class="fa fa-list"></i>
-          <span>Sales Order</span>
+        <a class="nav-link collapsed" href="goodsreciept.html">
+          <i class="fas fa-fw fa-files-o"></i>
+          <span>Goods Reciept</span>
         </a>
-       </li>
-
-       <li class="nav-item">
-        <a class="nav-link" href="payment.html">
-          <i class="fa fa-google-wallet"></i>
-          <span>Payment And Aging</span>
-        </a>
-       </li>
-
+      </li>
 
 
 
@@ -340,7 +335,7 @@ setTimeout(() => {
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -350,16 +345,28 @@ setTimeout(() => {
               </a>
               </div>
             </div>
-          </form>
-<!-- EDIT PROFILE-->
+          </form> -->
 
-          <button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="changetowritable()">
+             
+          <div class="input-group" style = "margin-top: 15px;">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
+                 <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+              </ol>
+            </nav>
+          </div>
+
+<!-- EDIT PROFILE-->
+<div style="margin-right:239px;">
+          <button id="payment-button" type="submit"  class="btn btn-primary btn-sm"  onclick="changetowritable()">
            <!-- <i class="fa fa-dot-circle-o"></i> EDIT PROFILE -->
             <i id="icon1" class="fa fa-lock fa-edit"></i>&nbsp;
             <span id="edit1">EDIT PROFILE</span>
              
         </button>
-       
+     </div>  
 
 
 

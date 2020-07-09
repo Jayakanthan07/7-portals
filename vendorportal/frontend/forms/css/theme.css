@@ -4677,6 +4677,10 @@ section {
     color: #fa4251;
 }
 
+.status--my {
+    color: #076cf1;
+}
+
 .table-data3 thead {
     background: #333;
 }
@@ -4684,9 +4688,10 @@ section {
 .table-data3 thead tr th {
     font-size: 16px;
     color: #fff;
+    text-align: center;
     font-weight: 400;
     text-transform: capitalize;
-    padding: 18px 40px;
+    padding: 15px 20px;
     padding-right: 10px;
 }
 
@@ -4745,6 +4750,12 @@ section {
 .table-data3 tbody td.denied {
     color: #fa4251;
 }
+
+
+.table-data3 tbody td.blu {
+    color: #5b00ee;
+}
+
 
 /* ----- Footer ----- */
 .copyright {

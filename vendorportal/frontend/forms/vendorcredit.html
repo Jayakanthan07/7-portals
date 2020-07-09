@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Sales Order</title>
+  <title>Credit Memo</title>
 
   <!-- Custom fonts for this template-->
   <link href="../new/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,130 +47,168 @@
   
 
 
-  <script>
-
-    //Display profile
-    function getprofile() {
-        getsalesorder();
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("token", localStorage.getItem('token'));
-        const raw = JSON.stringify({ custID: localStorage.getItem('username') });
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("http://localhost:8000/profile", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-
-                const displayname = document.getElementById('displayname');
-                displayname.textContent = `${result.cust_name}`;
-                const displayemail = document.getElementById('displayemail');
-                displayemail.textContent = `${result.cust_email.toLowerCase()}`;
-            })
-            .catch(error => console.log('error', error));
-    }
+  <head>
+    <!-- Required meta tags-->
 
 
 
-    function getsalesorder() {
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            const raw = JSON.stringify({ custID: localStorage.getItem('username') });
-            console.log(raw);
-            const requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            console.log(requestOptions.body);
+    <script>
 
-            fetch("http://localhost:8000/saleorder", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    //for (i = 0; i < result.invoiceresponse.length(); i++)
-                    for( i in result.salesresponse)
-                     {   
-                    //     console.log(result.salesresponse[i].sales_id._text);
-                    //     console.log(result.salesresponse[i].cust_id._text);
-                    //     console.log(result.salesresponse[i].vendor_id._text);
-                    //     console.log(result.salesresponse[i].itemname._text);
-                    //     console.log(result.salesresponse[i].quantity._text);
-                    //     console.log(result.salesresponse[i].price._text);
-                    //     console.log(result.salesresponse[i].dateofdelivery._text);
-                    //     console.log(result.salesresponse[i].totalamount._text);
-                    //     // document.getElementById("spl").innerHTML += '<div class="row p-3" id="myrow"><div class="col text-left"><div class="card border border-secondary"><input hidden type="text" value="' + result.salesresponse[i].sales_id + '" name="name2" id="' + i + '"><h5 class="card-header" id="name" name="name">' + result.salesresponse[i].cust_id + '</h5><div class="card-body"><h5 class="card-title">' + result.salesresponse[i].vendor_id + '</h5><a  onclick="setcook(' + i.toString() + ')" class="btn btn-secondary" style="color:white!important">Scan now</a></div></div></div></div>';
-                         document.getElementById("ord").innerHTML +='<td>'+'<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' + '</td>' + '<td>'+ result.salesresponse[i].SALESID._text +'</td>' +'<td>'+ result.salesresponse[i].INQUIRYTYPE._text +'</td>' +'<td>'+ result.salesresponse[i].SALES_ORG._text +'</td>' +'<td>'+ result.salesresponse[i].SALES_GRP._text +'</td>' + '<td>' + result.salesresponse[i].ITEMNO._text +'</td>' +'<td>'+ result.salesresponse[i].ITEMDESC._text +'</td>' +'<td class="process">'+ result.salesresponse[i].QUANTITY._text +'</td>' +'<td class="process">'+ result.salesresponse[i].TOTAL._text +'</td>' +'<td class="process">'+ result.salesresponse[i].DELIVERYTIME._text +'</td>' +'<td class="process">'+ result.salesresponse[i].PO_DATE._text +'</td>' +'<td class="process">'+ result.salesresponse[i].PO_NUM._text +'</td>';
-                         };
-                    
-                   
-                })
-                .catch(error => console.log('error', error));
-                
+      //Display profile
+      function getprofile() {
+          getcreditmemo();
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          myHeaders.append("token", localStorage.getItem('token'));
+          const raw = JSON.stringify({ venID: localStorage.getItem('username') });
+          const requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+          };
 
-        }
+          fetch("http://localhost:8000/vendorprofile", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+
+                  const displayname = document.getElementById('displayname');
+                  displayname.textContent = `${result.ven_name}`;
+                  const displayemail = document.getElementById('displayemail');
+                  displayemail.textContent = `${result.ven_email.toLowerCase()}`;
+              })
+              .catch(error => console.log('error', error));
+      }
+
+      //display modal data
+      function getresponse() {
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          const raw = JSON.stringify({custID: localStorage.getItem('customerid')});
+          console.log('CustID is:',raw);
+          console.log(raw);
+          const requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+          };
+          
+              fetch("http://localhost:8000/profile", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  const cust_name = document.getElementById('cust_name');
+                  cust_name.textContent=result.cust_name;
+                  const cust_email = document.getElementById('cust_email');
+                  cust_email.textContent=result.cust_email;
+                  const cust_phone = document.getElementById('cust_phone');
+                  cust_phone.textContent=result.cust_phone;
+                  const cust_city = document.getElementById('cust_city');
+                  cust_city.textContent=result.cust_city;
+                  const cust_country = document.getElementById('cust_country');
+                  cust_country.textContent=result.cust_country;
+                  const cust_pincode = document.getElementById('cust_pincode');
+                  cust_pincode.textContent=result.cust_pincode;
+                  const cust_district = document.getElementById('cust_district');
+                  cust_district.textContent=result.cust_district;
+                  const cust_state = document.getElementById('cust_state');
+                  cust_state.textContent=result.cust_state;
+                  const cust_addr = document.getElementById('cust_addr');
+                  cust_addr.textContent=result.cust_addr;
+                  const cust_fax = document.getElementById('cust_fax');
+                  cust_fax.textContent=result.cust_fax;
+                  const cust_companyid = document.getElementById('cust_companyid');
+                  cust_companyid.textContent=result.cust_companyid;
+                  const cust_vat = document.getElementById('cust_vat');
+                  cust_vat.textContent=result.cust_vat; 
+              })
+              .catch(error => console.log('error', error));
 
 
 
-</script>
+      }
 
+      //display Creditmemo
+      function getcreditmemo() {
+              const myHeaders = new Headers();
+              myHeaders.append("Content-Type", "application/json");
+              //myHeaders.append("token", localStorage.getItem('token'));
+              const raw = JSON.stringify({ venID: localStorage.getItem('username') });
+              console.log(raw);
+              const requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: raw,
+                  redirect: 'follow'
+              };
 
+              fetch("http://localhost:8000/creditvendor", requestOptions)
+                  .then(response => response.json())
+                  .then(result => {
+                      
+                    for( i in result.vendorcredit)
+                  {   
+                     
+                       document.getElementById("spl").innerHTML +='<td>'+'<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' + '</td>' + '<td>'+ result.vendorcredit[i].CREDITMEMO_ID._text +'</td>' +'<td class="blu">'+ result.vendorcredit[i].VENDOR_ID._text +'</td>' +'<td>'+ result.vendorcredit[i].VENDOR_NAME._text +'</td>' +'<td>'+ result.vendorcredit[i].VENDOR_ADDRESS._text +'</td>' + '<td>' + result.vendorcredit[i].DATE._text +'</td>' +'<td>'+ result.vendorcredit[i].LINE_ITEM._text +'</td>' +'<td class="process">'+ result.vendorcredit[i].QTY._text +'</td>' +'<td class="process">'+ result.vendorcredit[i].AMOUNT._text + '</td>' +'<td class="process">'+ result.vendorcredit[i].TOTAL._text  +'</td>';
+                      
+                       $(".btn-sm").click(function () {
+                          var $row = $(this).closest("tr"),
+                              $tds = $row.find("td:nth-child(3)");
+                              
 
+                          $.each($tds, function () {
+                              localStorage.setItem("customerid",$(this).text());
+                              getresponse();
+                          });
 
+                      });
+                      };
+              })
+              .catch(error => console.log('error', error));
+      }
+              
 
+      
+          function printDiv(divName)
+          {
+                  var printContents=document.getElementById(divName).innerHTML;
+                  w=window.open();
+                  w.document.write(printContents);
+                  w.print();
+                  w.close();
+          }
+          
+          function logout()
+          {
+                  localStorage.clear();
+                  console.log("token is cleared");
+                  setTimeout(() => {
+                                  window.location.href = '/';
+                  }, 2000);
+          }
 
+  </script>
 
-<script> 
-  function logout(){
-    localStorage.clear();
-    console.log("token is cleared");
-    setTimeout(() => {
-                    window.location.href = '/';
-    }, 2000);
-}
-</script>
- 
+<!-- Fontfaces CSS-->
+<link href="css/font-face.css" rel="stylesheet" media="all">
+<link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+<link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+<link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
+<!-- Bootstrap CSS-->
+<link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
+<!-- Vendor CSS-->
+<link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+<link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+<link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+<link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+<link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+<link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+<link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
-
-
-
-
-
-
-
-
-
-
-  <!-- Title Page-->
-  
-
-  <!-- Fontfaces CSS-->
-  <link href="css/font-face.css" rel="stylesheet" media="all">
-  <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-  <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-  <!-- Bootstrap CSS-->
-  <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-  <!-- Vendor CSS-->
-  <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-  <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-  <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-  <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-  <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-  <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-  <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-
-  <!-- Main CSS-->
-  <link href="css/theme.css" rel="stylesheet" media="all">
+<!-- Main CSS-->
+<link href="css/theme.css" rel="stylesheet" media="all">
 
 
 
@@ -179,9 +217,11 @@
 
 </head>
 
-<body onload=getprofile() id="page-top">
 
-  <!-- Page Wrapper -->
+
+
+<body onload="getprofile()" class="animsition" id="page-top">
+     <!-- Page Wrapper -->
   <div id="wrapper">
 
     <!-- Sidebar -->
@@ -209,51 +249,48 @@
       
 
       <!-- Nav Item - Pages Collapse Menu -->
+      
+      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="profile1.html">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-user"></i>
           <span>Profile</span>
         </a>
        </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
+      
       <li class="nav-item">
-        <a class="nav-link collapsed" href="invoice.html">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Invoice</span>
+        <a class="nav-link" href="quotationdisplay.html">
+          <i class="fa fa-question-circle"></i>
+          <span>Quotation Display</span>
         </a>
-        
-      </li>
+       </li>
+
+       <li class="nav-item">
+        <a class="nav-link" href="purchaseorder.html">
+          <i class="fa fa-file-text"></i>
+          <span>Purchase Order</span>
+        </a>
+       </li>
+
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="credit1.html">
-          <i class="fas fa-fw fa-folder"></i>
+        <a class="nav-link" href="vendorcredit.html">
+          <i class="fas fa-fw fa-file-text"></i>
           <span>Credit Memo</span>
         </a>
        </li>
 
-       <li class="nav-item">
-        <a class="nav-link" href="inquiry.html">
-          <i class="fa fa-question-circle"></i>
-          <span>Inquiry</span>
-        </a>
-       </li>
 
 
        <li class="nav-item">
-        <a class="nav-link" href="salesorder.html">
-          <i class="fa fa-list"></i>
-          <span>Sales Order</span>
+        <a class="nav-link collapsed" href="goodsreciept.html">
+          <i class="fas fa-fw fa-files-o"></i>
+          <span>Goods Reciept</span>
         </a>
-       </li>
-
-       <li class="nav-item">
-        <a class="nav-link" href="payment.html">
-          <i class="fa fa-google-wallet"></i>
-          <span>Payment And Aging</span>
-        </a>
-       </li>
+      </li>
 
 
       <!-- Divider -->
@@ -282,7 +319,7 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -291,9 +328,20 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form> -->
 
-          
+            
+          <div class="input-group" style = "margin-top: 15px;">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
+                 <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Credit Memo</li>
+              </ol>
+            </nav>
+          </div>
+
+
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -424,6 +472,38 @@
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
+            <!-- Nav Item - User Information -->
+<!--            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+              
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+        -->
+
+
 
 
         <div class="user-area float-right">
@@ -467,90 +547,121 @@
         </nav>
         <!-- End of Topbar -->
 
+        <div style="display: flex;">
+          
+                                
+                                 <div class="row m-t-30">
+                                    <div class="col-md-12">
+                                        <!-- DATA TABLE-->
+                                        <div class="table-responsive m-b-40">
+                                            <table class="table table-borderless table-data3">
+                                                <thead>
+                                                    <tr>
+                                                      <th>Action</th>
+                                                      <th>Credit Memo ID</th>
+                                                      <th>Customer ID</th>
+                                                      <th>Customer Name</th>
+                                                      <th>Customer Address</th>
+                                                      <th>Date</th>
+                                                      <th>Line Item</th>
+                                                      <th>Quantity</th>
+                                                      <th>Amount</th>
+                                                      <th>Total Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="spl">
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- END DATA TABLE-->
 
 
-
-         
-          <div>       
-                   <div class="row m-t-30">
-                            <div class="col-md-12">
-                                <!-- DATA TABLE-->
-                                <div class="table-responsive m-b-40">
-                                    <table class="table table-borderless table-data3">
-                                        <thead>
-                                            <tr>
-                                               <th>Details</th>
-                                                <th>Sales ID</th>
-                                                <th>Inquiry Type</th>
-                                                <th>Sales Org.</th>
-                                                <th>Sales Group</th> 
-                                                <th>Item No.</th>                                               
-                                                <th>Item Description</th>
-                                                <th>Quantity</th>
-                                                <th>Total</th>
-                                                <th>Delivery Time</th>
-                                                <th>Po Date</th>
-                                                <th>Po Number</th>
-                                                
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ord">
-                                                                                      
-                                            
-                                        </tbody>
                                         
-                                    </table>
+                                    </div>
                                 </div>
-                                <!-- END DATA TABLE-->
-                            </div>
-                        </div>
+                                
 
 
-
-
-                        <section>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <div class="copyright">
-                                      <strong><p>© Made with love and Teamwork!.</p></strong>
-                                      <p>jk</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </section>
-                      
-                        
-<!-- Modal -->
+                                <!-- Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Vendor Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      
+        <form>
+                            <h5>Customer name</h5> <p id="cust_name"></p>
+                            <h5>Customer email</h5><p id="cust_email"></p>
+                            <h5>Customer city</h5><p id="cust_city"></p>    
+                            <h5>Customer phone</h5><p id="cust_phone" ></p>
+                            <h5>Customer country</h5><p id="cust_country"></p>
+                            <h5>Customer pincode</h5><p id="cust_pincode"></p>
+                            <h5>Customer district</h5><p id="cust_district"></p>
+                            <h5>Customer state</h5><p id="cust_state"></p>
+                            <h5>Customer Address</h5><p id="cust_addr"></p>
+                            <h5>Customer fax</h5><p id="cust_fax"></p>
+                            <h5>Customer companyid</h5><p id="cust_companyid"></p>
+                            <h5>Customer vat</h5><p id="cust_vat"></p>
+          </div>  
+          
+      </form>
+
+
+
+
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
 </div>
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
+<section>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="copyright">
+              <strong><p>© Made with love and Teamwork!.</p></strong>
+              <p>jk</p>
+          </div>
+      </div>
+  </div>
+</section>
+ 
+
+
+                            </div>
+                                 
+                                
                         
+
+              
+                      
+</div>
+
+             
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -592,6 +703,13 @@
 </script>
 
 
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+
+
 <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
 
@@ -620,38 +738,16 @@
 <script src="../assets/js/main.js"></script>
 
 
-        
 
+<!-- Bootstrap core JavaScript-->
+<script src="../new/vendor/jquery/jquery.min.js"></script>
+<script src="../new/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!-- Core plugin JavaScript-->
+<script src="../new/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <!-- Bootstrap core JavaScript-->
-  <script src="../new/vendor/jquery/jquery.min.js"></script>
-  <script src="../new/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="../new/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="../new/js/sb-admin-2.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="../new/js/sb-admin-2.min.js"></script>
 
 </body>
 

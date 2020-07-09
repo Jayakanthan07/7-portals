@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Credit Memo</title>
+  <title>Goods Reciept</title>
 
   <!-- Custom fonts for this template-->
   <link href="../new/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,168 +47,234 @@
   
 
 
-  <head>
-    <!-- Required meta tags-->
+  <script>
+    function getresponse() {
+        console.log("getresponse triggered");
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        // const raw = JSON.stringify({CustID: localStorage.getItem('username') });
+        // console.log('CustomerID is:',raw);
+        // console.log(raw);
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: raw,
+        //     redirect: 'follow'
+        // };
+        
+
+        const raw2 = JSON.stringify({custID: localStorage.getItem('customerid')});
+        console.log('Cust is:',raw2);
+        console.log(raw2);
+        const requestOptions2 = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw2,
+            redirect: 'follow'
+        };
+        
+
+        fetch("http://localhost:8000/profile", requestOptions2)
+            .then(response => response.json())
+            .then(result => {
+                                    
+                const cust_name = document.getElementById('cust_name');
+                cust_name.textContent=result.cust_name;
+                const cust_email = document.getElementById('cust_email');
+                cust_email.textContent=result.cust_email;
+                const cust_phone = document.getElementById('cust_phone');
+                cust_phone.textContent=result.cust_phone;
+                const cust_city = document.getElementById('cust_city');
+                cust_city.textContent=result.cust_city;
+                const cust_country = document.getElementById('cust_country');
+                cust_country.textContent=result.cust_country;
+                const cust_pincode = document.getElementById('cust_pincode');
+                cust_pincode.textContent=result.cust_pincode;
+                const cust_district = document.getElementById('cust_district');
+                cust_district.textContent=result.cust_district;
+                const cust_state = document.getElementById('cust_state');
+                cust_state.textContent=result.cust_state;
+                const cust_addr = document.getElementById('cust_addr');
+                cust_addr.textContent=result.cust_addr;
+                const cust_fax = document.getElementById('cust_fax');
+                cust_fax.textContent=result.cust_fax;
+                const cust_companyid = document.getElementById('cust_companyid');
+                cust_companyid.textContent=result.cust_companyid;
+                const cust_vat = document.getElementById('cust_vat');
+                cust_vat.textContent=result.cust_vat;    
+            })
+            .catch(error => console.log('error', error));
+
+            // fetch("http://localhost:8000/vendorprofile", requestOptions2)
+            // .then(response => response.json())
+            // .then(result => {
+            //     const ven_name = document.getElementById('ven_name');
+            //     ven_name.textContent = result.ven_name;
+            //     const ven_email = document.getElementById('ven_email');
+            //     ven_email.textContent = result.ven_email.toLowerCase();
+            //     const ven_phone = document.getElementById('ven_phone');
+            //     ven_phone.textContent = result.ven_phone;
+            //     const ven_city = document.getElementById('ven_city');
+            //     ven_city.textContent = result.ven_city;
+            //     const ven_state = document.getElementById('ven_state');
+            //     ven_state.textContent = result.ven_state.toLowerCase();
+            //     const ven_country = document.getElementById('ven_country');
+            //     ven_country.textContent = result.ven_country.toLowerCase();
+            //     const ven_pincode = document.getElementById('ven_pincode');
+            //     ven_pincode.textContent = result.ven_pincode;
+            //     const ven_address = document.getElementById('ven_address');
+            //     ven_address.textContent = result.ven_address.toLowerCase();
+            //     const ven_gstin = document.getElementById('ven_gstin');
+            //     ven_gstin.textContent = result.ven_gstin;
+            //     const ven_pan = document.getElementById('ven_pan');
+            //     ven_pan.textContent = result.ven_pan;
+            //     const ven_entitytype = document.getElementById('ven_entitytype');
+            //     ven_entitytype.textContent = result.ven_entitytype;
+            //     const ven_regtype = document.getElementById('ven_regtype');
+            //     ven_regtype.textContent = result.ven_regtype;
+            // })
+            // .catch(error => console.log('error', error));
 
 
 
-    <script>
-
-      //Display profile
-      function getprofile() {
-          getcreditmemo();
-          const myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
-          myHeaders.append("token", localStorage.getItem('token'));
-          const raw = JSON.stringify({ venID: localStorage.getItem('username') });
-          const requestOptions = {
-              method: 'POST',
-              headers: myHeaders,
-              body: raw,
-              redirect: 'follow'
-          };
-
-          fetch("http://localhost:8000/vendorprofile", requestOptions)
-              .then(response => response.json())
-              .then(result => {
-
-                  const displayname = document.getElementById('displayname');
-                  displayname.textContent = `${result.ven_name}`;
-                  const displayemail = document.getElementById('displayemail');
-                  displayemail.textContent = `${result.ven_email.toLowerCase()}`;
-              })
-              .catch(error => console.log('error', error));
-      }
-
-      //display modal data
-      function getresponse() {
-          const myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
-          const raw = JSON.stringify({custID: localStorage.getItem('customerid')});
-          console.log('CustID is:',raw);
-          console.log(raw);
-          const requestOptions = {
-              method: 'POST',
-              headers: myHeaders,
-              body: raw,
-              redirect: 'follow'
-          };
-          
-              fetch("http://localhost:8000/profile", requestOptions)
-              .then(response => response.json())
-              .then(result => {
-                  const cust_name = document.getElementById('cust_name');
-                  cust_name.textContent=result.cust_name;
-                  const cust_email = document.getElementById('cust_email');
-                  cust_email.textContent=result.cust_email;
-                  const cust_phone = document.getElementById('cust_phone');
-                  cust_phone.textContent=result.cust_phone;
-                  const cust_city = document.getElementById('cust_city');
-                  cust_city.textContent=result.cust_city;
-                  const cust_country = document.getElementById('cust_country');
-                  cust_country.textContent=result.cust_country;
-                  const cust_pincode = document.getElementById('cust_pincode');
-                  cust_pincode.textContent=result.cust_pincode;
-                  const cust_district = document.getElementById('cust_district');
-                  cust_district.textContent=result.cust_district;
-                  const cust_state = document.getElementById('cust_state');
-                  cust_state.textContent=result.cust_state;
-                  const cust_addr = document.getElementById('cust_addr');
-                  cust_addr.textContent=result.cust_addr;
-                  const cust_fax = document.getElementById('cust_fax');
-                  cust_fax.textContent=result.cust_fax;
-                  const cust_companyid = document.getElementById('cust_companyid');
-                  cust_companyid.textContent=result.cust_companyid;
-                  const cust_vat = document.getElementById('cust_vat');
-                  cust_vat.textContent=result.cust_vat; 
-              })
-              .catch(error => console.log('error', error));
+    }
 
 
 
-      }
 
-      //display Creditmemo
-      function getcreditmemo() {
-              const myHeaders = new Headers();
-              myHeaders.append("Content-Type", "application/json");
-              //myHeaders.append("token", localStorage.getItem('token'));
-              const raw = JSON.stringify({ venID: localStorage.getItem('username') });
-              console.log(raw);
-              const requestOptions = {
-                  method: 'POST',
-                  headers: myHeaders,
-                  body: raw,
-                  redirect: 'follow'
-              };
 
-              fetch("http://localhost:8000/creditvendor", requestOptions)
-                  .then(response => response.json())
-                  .then(result => {
-                      
-                    for( i in result.vendorcredit)
-                  {   
+    //display incident
+    function displaygrorder() {
+        venID = localStorage.getItem("username");
+        const displayname = document.getElementById('displayname');
+        displayname.textContent = venID;
+
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("token", localStorage.getItem('token'));
+            console.log("displaygrorder endpoint called");
+            const raw = JSON.stringify({ venID: localStorage.getItem('username') });
+            console.log(raw);
+            const requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:8000/goodsreciept", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    
+                  
+                    for( i in result.grdisplay)
+                {   
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                          document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'+'</td>'+'<td class="user">'+ result.grdisplay[i].prodorder_id._text +'</td>'   +'<td class="blu">' + result.grdisplay[i].material_id._text   +'</td>'+ '<td>' + result.grdisplay[i].materialname._text   +'</td>' +'<td '+ (result.grdisplay[i].status._text === 'Approved' ? ' class="process"' : 'class="denied"') + '>'+ result.grdisplay[i].status._text +'</td>' + '<td>'+ result.grdisplay[i].quantity._text +'</td>'+'<td class="process">'+ result.grdisplay[i].plant._text +'</td>' ;
                      
-                       document.getElementById("spl").innerHTML +='<td>'+'<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' + '</td>' + '<td>'+ result.vendorcredit[i].CREDITMEMO_ID._text +'</td>' +'<td class="user">'+ result.vendorcredit[i].VENDOR_ID._text +'</td>' +'<td>'+ result.vendorcredit[i].VENDOR_NAME._text +'</td>' +'<td>'+ result.vendorcredit[i].VENDOR_ADDRESS._text +'</td>' + '<td>' + result.vendorcredit[i].DATE._text +'</td>' +'<td>'+ result.vendorcredit[i].LINE_ITEM._text +'</td>' +'<td class="process">'+ result.vendorcredit[i].QTY._text +'</td>' +'<td class="process">'+ result.vendorcredit[i].AMOUNT._text +'&#8377;' +'</td>' +'<td class="process">'+ result.vendorcredit[i].TOTAL._text +'&#8377;' +'</td>';
-                      
-                       $(".btn-sm").click(function () {
-                          var $row = $(this).closest("tr"),
-                              $tds = $row.find("td:nth-child(3)");
-                              
+                     
+                     
+                   
+                            $(".btn-sm").click(function () {
+                                    var $row = $(this).closest("tr"),
+                                        $tds = $row.find("td:nth-child(3)");
 
-                          $.each($tds, function () {
-                              localStorage.setItem("customerid",$(this).text());
-                              getresponse();
-                          });
+
+
+                                    $.each($tds, function () {
+
+                                        localStorage.setItem("customerid", $(this).text());
+                                        getresponse();
+
+                                    });
+
+
+                          
 
                       });
-                      };
-              })
-              .catch(error => console.log('error', error));
-      }
-              
+                     
+                };
 
-      
-          function printDiv(divName)
-          {
-                  var printContents=document.getElementById(divName).innerHTML;
-                  w=window.open();
-                  w.document.write(printContents);
-                  w.print();
-                  w.close();
-          }
-          
-          function logout()
-          {
-                  localStorage.clear();
-                  console.log("token is cleared");
-                  setTimeout(() => {
-                                  window.location.href = '/';
-                  }, 2000);
-          }
+                
+                })
+                .catch(error => console.log('error', error));
 
-  </script>
+    }
 
-<!-- Fontfaces CSS-->
-<link href="css/font-face.css" rel="stylesheet" media="all">
-<link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-<link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-<link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+// function printDiv(divName) {
+//     var printContents = document.getElementById(divName).innerHTML;
+//     w = window.open();
+//     w.document.write(printContents);
+//     w.print();
+//     w.close();
+// }
+    
+    
 
-<!-- Bootstrap CSS-->
-<link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+function logout(){
+localStorage.clear();
+console.log("token is cleared");
+setTimeout(() => {
+                window.location.href = '/';
+}, 1000);
+}
 
-<!-- Vendor CSS-->
-<link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-<link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-<link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-<link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-<link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-<link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-<link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
-<!-- Main CSS-->
-<link href="css/theme.css" rel="stylesheet" media="all">
+
+</script>
+
+
+
+
+
+
+<script> 
+  function logout(){
+    localStorage.clear();
+    console.log("token is cleared");
+    setTimeout(() => {
+                    window.location.href = '/';
+    }, 2000);
+}
+</script>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Title Page-->
+
+
+  <!-- Fontfaces CSS-->
+  <link href="css/font-face.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+  <!-- Bootstrap CSS-->
+  <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+  <!-- Vendor CSS-->
+  <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+  <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+  <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+  <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+  <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+  <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+  <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+  <!-- Main CSS-->
+  <link href="css/theme.css" rel="stylesheet" media="all">
 
 
 
@@ -217,11 +283,9 @@
 
 </head>
 
+<body onload=displaygrorder() id="page-top">
 
-
-
-<body onload="getprofile()" class="animsition" id="page-top">
-     <!-- Page Wrapper -->
+  <!-- Page Wrapper -->
   <div id="wrapper">
 
     <!-- Sidebar -->
@@ -249,9 +313,11 @@
       
 
       <!-- Nav Item - Pages Collapse Menu -->
+    
+      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="profile1.html">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-user"></i>
           <span>Profile</span>
         </a>
        </li>
@@ -265,37 +331,30 @@
         </a>
        </li>
 
+       <li class="nav-item">
+        <a class="nav-link" href="purchaseorder.html">
+          <i class="fa fa-file-text"></i>
+          <span>Purchase Order</span>
+        </a>
+       </li>
+
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="credit1.html">
-          <i class="fas fa-fw fa-folder"></i>
+        <a class="nav-link" href="vendorcredit.html">
+          <i class="fas fa-fw fa-file-text"></i>
           <span>Credit Memo</span>
         </a>
        </li>
 
 
-       <li class="nav-item">
-        <a class="nav-link" href="inquiry.html">
-          <i class="fa fa-question-circle"></i>
-          <span>Inquiry</span>
-        </a>
-       </li>
-
 
        <li class="nav-item">
-        <a class="nav-link" href="salesorder.html">
-          <i class="fa fa-list"></i>
-          <span>Sales Order</span>
+        <a class="nav-link collapsed" href="goodsreciept.html">
+          <i class="fas fa-fw fa-files-o"></i>
+          <span>Goods Reciept</span>
         </a>
-       </li>
-
-       <li class="nav-item">
-        <a class="nav-link" href="payment.html">
-          <i class="fa fa-google-wallet"></i>
-          <span>Payment And Aging</span>
-        </a>
-       </li>
-
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -323,7 +382,7 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -332,8 +391,20 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form> -->
 
+            
+          <div class="input-group" style = "margin-top: 15px;">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
+                 <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Goods Reciept</li>
+              </ol>
+            </nav>
+          </div>
+
+          
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -464,38 +535,7 @@
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
-            <!-- Nav Item - User Information -->
-<!--            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-        -->
-
-
+          
 
 
         <div class="user-area float-right">
@@ -539,43 +579,57 @@
         </nav>
         <!-- End of Topbar -->
 
-        <div>
-          
-                                
-                                 <div class="row m-t-30">
-                                    <div class="col-md-12">
-                                        <!-- DATA TABLE-->
-                                        <div class="table-responsive m-b-40">
-                                            <table class="table table-borderless table-data3">
-                                                <thead>
-                                                    <tr>
-                                                      <th>Action</th>
-                                                      <th>Credit Memo ID</th>
-                                                      <th>Customer ID</th>
-                                                      <th>Customer Name</th>
-                                                      <th>Customer Address</th>
-                                                      <th>Date</th>
-                                                      <th>Line Item</th>
-                                                      <th>Quantity</th>
-                                                      <th>Amount</th>
-                                                      <th>Total Amount</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="spl">
-                                                    
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!-- END DATA TABLE-->
 
 
+
+         
+          <div>
+      
+                        <div class="row m-t-30">
+                            <div class="col-md-12">
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3">
+                                        <thead>
+                                            <tr>
+                                              <th>Action</th>
+                                              <th>GoodsReciept ID</th>
+                                              <th>Customer ID</th>
+                                              <th>Material Name</th>
+                                              <th>Status</th>
+                                              <th>Quantity</th>
+                                              <th>Total</th>
+                                                                
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody id="spl">
+                                                                                      
+                                            
+                                        </tbody>
                                         
-                                    </div>
+                                    </table>
                                 </div>
-                                
+                                <!-- END DATA TABLE-->
+                            </div>
+                        </div>
 
 
-                                <!-- Modal -->
+
+
+                        <section>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="copyright">
+                                      <strong><p>© Made with love and Teamwork!.</p></strong>
+                                      <p>jk</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+                      
+                        
+<!-- Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -587,18 +641,18 @@
       </div>
       <div class="modal-body">
         <form>
-                            <h5>Customer name</h5> <p id="cust_name"></p>
-                            <h5>Customer email</h5><p id="cust_email"></p>
-                            <h5>Customer city</h5><p id="cust_city"></p>    
-                            <h5>Customer phone</h5><p id="cust_phone" ></p>
-                            <h5>Customer country</h5><p id="cust_country"></p>
-                            <h5>Customer pincode</h5><p id="cust_pincode"></p>
-                            <h5>Customer district</h5><p id="cust_district"></p>
-                            <h5>Customer state</h5><p id="cust_state"></p>
-                            <h5>Customer Address</h5><p id="cust_addr"></p>
-                            <h5>Customer fax</h5><p id="cust_fax"></p>
-                            <h5>Customer companyid</h5><p id="cust_companyid"></p>
-                            <h5>Customer vat</h5><p id="cust_vat"></p>
+          <h5>Customer name</h5> <p id="cust_name"></p>
+          <h5>Customer email</h5><p id="cust_email"></p>
+          <h5>Customer city</h5><p id="cust_city"></p>    
+          <h5>Customer phone</h5><p id="cust_phone" ></p>
+          <h5>Customer country</h5><p id="cust_country"></p>
+          <h5>Customer pincode</h5><p id="cust_pincode"></p>
+          <h5>Customer district</h5><p id="cust_district"></p>
+          <h5>Customer state</h5><p id="cust_state"></p>
+          <h5>Customer Address</h5><p id="cust_addr"></p>
+          <h5>Customer fax</h5><p id="cust_fax"></p>
+          <h5>Customer companyid</h5><p id="cust_companyid"></p>
+          <h5>Customer vat</h5><p id="cust_vat"></p>
           </div>  
           
       </form>
@@ -618,47 +672,42 @@
 </div>
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<section>
-  <div class="row">
-      <div class="col-md-12">
-          <div class="copyright">
-              <strong><p>© Made with love and Teamwork!.</p></strong>
-              <p>jk</p>
-          </div>
-      </div>
-  </div>
-</section>
- 
-
-
-                            </div>
-                                 
-                                
                         
 
+
+
+
+
+
+                        <!--my table-->
+                            
+
+
+
+
+
+
+
+
+
               
-                      
-</div>
+                    
+         <!--           
+                   
+                 
+            </div>
+        </div>
+    </div>
 
-             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  </div>
+-->
 <!-- Jquery JS-->
 <script src="vendor/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap JS-->
@@ -695,13 +744,6 @@
 </script>
 
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
-
-
-
 <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
 
@@ -730,16 +772,52 @@
 <script src="../assets/js/main.js"></script>
 
 
+        
 
-<!-- Bootstrap core JavaScript-->
-<script src="../new/vendor/jquery/jquery.min.js"></script>
-<script src="../new/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="../new/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="../new/js/sb-admin-2.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+
+
+      
+      <!-- End of Main Content -->
+
+     
+
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+
+
+  
+  <!-- Bootstrap core JavaScript-->
+  <script src="../new/vendor/jquery/jquery.min.js"></script>
+  <script src="../new/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../new/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../new/js/sb-admin-2.min.js"></script>
 
 </body>
 

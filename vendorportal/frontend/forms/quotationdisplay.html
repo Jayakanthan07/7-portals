@@ -172,7 +172,7 @@
                       for( i in result.quotationresponse)
                   {   
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-                      document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' +'<td class="user">'+ result.quotationresponse[i].INQUIRY_NO._text +'</td>' +'<td class="process">'+ result.quotationresponse[i].PRODUCT_INQUIRY._text +'</td>' + '<td>' + result.quotationresponse[i].CUST_PHONENO._text   +'</td>'  +'<td>'+ result.quotationresponse[i].QTY._text +'</td>'  ;
+                      document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' +'<td class="user">'+ result.quotationresponse[i].INQUIRY_NO._text +'</td>' +'<td class="blu">'+ result.quotationresponse[i].PRODUCT_INQUIRY._text +'</td>' + '<td class = "process">' + result.quotationresponse[i].CUST_PHONENO._text   +'</td>'  +'<td>'+ result.quotationresponse[i].QTY._text +'</td>'  ;
 
                      
                        $(".btn-sm").click(function () {
@@ -295,9 +295,11 @@
       <!-- Nav Item - Utilities Collapse Menu -->
       
       <!-- Nav Item - Pages Collapse Menu -->
+    
+      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="profile1.html">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-user"></i>
           <span>Profile</span>
         </a>
        </li>
@@ -311,17 +313,30 @@
         </a>
        </li>
 
+       <li class="nav-item">
+        <a class="nav-link" href="purchaseorder.html">
+          <i class="fa fa-file-text"></i>
+          <span>Purchase Order</span>
+        </a>
+       </li>
+
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="credit1.html">
-          <i class="fas fa-fw fa-folder"></i>
+        <a class="nav-link" href="vendorcredit.html">
+          <i class="fas fa-fw fa-file-text"></i>
           <span>Credit Memo</span>
         </a>
        </li>
 
 
 
-
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="goodsreciept.html">
+          <i class="fas fa-fw fa-files-o"></i>
+          <span>Goods Reciept</span>
+        </a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -366,8 +381,8 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
               <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
-                 <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li> 
-                <li class="breadcrumb-item active" aria-current="page">Display Incident</li>
+                 <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Quotation Display</li>
               </ol>
             </nav>
           </div>

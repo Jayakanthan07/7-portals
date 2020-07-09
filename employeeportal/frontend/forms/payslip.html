@@ -144,7 +144,7 @@
               for( i in result.salaryresponse)
               {   
                  
-                   document.getElementById("pay").innerHTML += '</td>'+ '<td class="user">'+ result.salaryresponse[i].ACCOUNT_NUMBER._text +'</td>' +'<td >'+ result.salaryresponse[i].MODE_OF_PARTY._text +'</td>' +'<td class="process">'+ result.salaryresponse[i].BASIC._text +'&#8377;'+'</td>'+ '<td class="process">' + result.salaryresponse[i].DA._text+'&#8377;' +'</td>' +'<td class="process">'+ result.salaryresponse[i].HRA._text+'&#8377;' +'</td>' +'<td class="user">'+ result.salaryresponse[i].NET_PAY._text+'&#8377;' +'</td>' +'<td>'+ result.salaryresponse[i].MONTH._text +'</td>' +'<td>'+ result.salaryresponse[i].YEAR._text +'</td>'  ;
+                   document.getElementById("pay").innerHTML += '</td>'+ '<td class="user">'+ result.salaryresponse[i].ACCOUNT_NUMBER._text +'</td>' +'<td >'+ result.salaryresponse[i].MODE_OF_PARTY._text +'</td>' +'<td class="process">'+ result.salaryresponse[i].BASIC._text +'</td>'+ '<td class="process">' + result.salaryresponse[i].DA._text +'</td>' +'<td class="process">'+ result.salaryresponse[i].HRA._text +'</td>' +'<td class="user">'+ result.salaryresponse[i].NET_PAY._text +'</td>' +'<td>'+ result.salaryresponse[i].MONTH._text +'</td>' +'<td>'+ result.salaryresponse[i].YEAR._text +'</td>'  ;
                };
               
               })
@@ -183,7 +183,7 @@
 
 
               document.getElementById("pay").innerHTML = "";
-              document.getElementById("pay").innerHTML += '</td>' + '<td class="user">' + result.ACCOUNT_NUMBER + '</td>' + '<td >' + result.MODE_OF_PARTY + '</td>' + '<td class="process">' + result.BASIC + '&#8377;' + '</td>' + '<td class="process">' + result.DA + '&#8377;' + '</td>' + '<td class="process">' + result.HRA + '&#8377;' + '</td>' + '<td class="user">' + result.NET_PAY + '&#8377;' + '</td>' + '<td>' + result.MONTH + '</td>' + '<td>' + result.YEAR + '</td>';
+              document.getElementById("pay").innerHTML += '</td>' + '<td class="user">' + result.ACCOUNT_NUMBER + '</td>' + '<td >' + result.MODE_OF_PARTY + '</td>' + '<td class="process">' + result.BASIC  + '</td>' + '<td class="process">' + result.DA  + '</td>' + '<td class="process">' + result.HRA  + '</td>' + '<td class="user">' + result.NET_PAY  + '</td>' + '<td>' + result.MONTH + '</td>' + '<td>' + result.YEAR + '</td>';
 
           })
           .catch(error => console.log('error', error));
@@ -224,7 +224,7 @@
 
               for (i in result.salaryresponse) {
 
-                  document.getElementById("pay").innerHTML += '</td>' + '<td class="user">' + result.salaryresponse[i].ACCOUNT_NUMBER._text + '</td>' + '<td >' + result.salaryresponse[i].MODE_OF_PARTY._text + '</td>' + '<td class="process">' + result.salaryresponse[i].BASIC._text + '&#8377;' + '</td>' + '<td class="process">' + result.salaryresponse[i].DA._text + '&#8377;' + '</td>' + '<td class="process">' + result.salaryresponse[i].HRA._text + '&#8377;' + '</td>' + '<td class="user">' + result.salaryresponse[i].NET_PAY._text + '&#8377;' + '</td>' + '<td>' + result.salaryresponse[i].MONTH._text + '</td>' + '<td>' + result.salaryresponse[i].YEAR._text + '</td>';
+                  document.getElementById("pay").innerHTML += '</td>' + '<td class="user">' + result.salaryresponse[i].ACCOUNT_NUMBER._text + '</td>' + '<td >' + result.salaryresponse[i].MODE_OF_PARTY._text + '</td>' + '<td class="process">' + result.salaryresponse[i].BASIC._text  + '</td>' + '<td class="process">' + result.salaryresponse[i].DA._text  + '</td>' + '<td class="process">' + result.salaryresponse[i].HRA._text  + '</td>' + '<td class="user">' + result.salaryresponse[i].NET_PAY._text + '&#8377;' + '</td>' + '<td>' + result.salaryresponse[i].MONTH._text + '</td>' + '<td>' + result.salaryresponse[i].YEAR._text + '</td>';
               };
 
           })
@@ -452,17 +452,15 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-
+          <div class="input-group" style = "margin-top: 15px;">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
+                 <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">PaySlip</li>
+              </ol>
+            </nav>
+          </div>
           
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -670,12 +668,12 @@
         <!-- End of Topbar -->
 
 
-
+<!-- 
          <div>
 
 
-          <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-            <select class="js-select2" id="selectmonth" name="Monthselector">
+          <div class="rs-select--dark rs-select--md m-r-10 rs-select--border">
+            <select class="js-select" id="selectmonth" name="Monthselector">
                 <option selected="selected">Month</option>
                 <option value="JANUARY">January</option>
                 <option value="FEBRUARY">February</option>
@@ -693,8 +691,8 @@
             <div class="dropDownSelect2"></div>
         </div>
 
-        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-            <select class="js-select2" id="selectyear" name="yearselector">
+        <div class="rs-select--dark rs-select--md m-r-11 rs-select2--border">
+            <select class="js-select" id="selectyear" name="yearselector">
                 <option selected="selected">Year</option>
                 <option value="2020">2020</option>
                 <option value="2019">2019</option>
@@ -706,18 +704,188 @@
             <div class="dropDownSelect2"></div>
         </div>
 
-        <button class="au-btn-filter" onclick="getcurrentyear()">
-            <i class="zmdi zmdi-filter-list"></i>filter by Year
+        <button style ="background-color: #4CAF50; color: white;"class="au-btn-filter" onclick="getcurrentyear()">
+            <i class="zmdi zmdi-filter-list"></i>Filter By Year
         </button>
-
-        <button class="au-btn-filter" onclick="getmonthyear()">
-            <i class="zmdi zmdi-filter-list"></i>filter by Month
+&nbsp;&nbsp;&nbsp;
+        <button style ="background-color: #343db4; color: white;"class="au-btn-filter" onclick="getmonthyear()">
+            <i class="zmdi zmdi-filter-list"></i>Filter By Month
         </button>
+      -->
+        
+      
+<!--         
+                    <div class="card" >
+                        <div class="card-header">
+                            <strong>Select </strong>Year/Month
+                        </div>
+                        <div class="card-body card-block">
+                          <div  class="container">
+                            <div class="row">
+                              <div class="">
+                              
+                                <div class="rs-select--dark rs-select--md m-r-10 rs-select--border">
+                                  <select style="margin-left: 20px;" class="js-select" id="selectmonth" name="Monthselector">
+                                      <option selected="selected">Month</option>
+                                      <option value="JANUARY">January</option>
+                                      <option value="FEBRUARY">February</option>
+                                      <option value="MARCH">March</option>
+                                      <option value="APRIL">April</option>
+                                      <option value="MAY">May</option>
+                                      <option value="JUNE">June</option>
+                                      <option value="JULY">July</option>
+                                      <option value="AUGUST">August</option>
+                                      <option value="SEPTEMBER">September</option>
+                                      <option value="OCTOBER">October</option>
+                                      <option value="NOVEMBER">November</option>
+                                      <option value="DECEMBER">December</option>
+                                  </select>
+                                  <div class="dropDownSelect2"></div>
+                              </div>
+                      
+                              </div>
+                              <div class="">
+                                <div class="rs-select--dark rs-select--md m-r-11 rs-select2--border">
+                                  <select style="margin-left: 80px;" class="js-select" id="selectyear" name="yearselector">
+                                      <option selected="selected">Year</option>
+                                      <option value="2020">2020</option>
+                                      <option value="2019">2019</option>
+                                      <option value="2018">2018</option>
+                                      <option value="2017">2017</option>
+                                      <option value="2016">2016</option>
+                                      <option value="2015">2015</option>
+                                  </select>
+                                  <div class="dropDownSelect2"></div>
+                              </div>
+                             
+                              </div>
+                              </div>
+                            </div>
+                        </div>
+                  
+                        
 
-
-
-
-                                                        
+                        
+                        <div class="card-footer">
+                          <button style ="   background-color: #4CAF50; color: white; "class="au-btn-filter" onclick="getcurrentyear()">
+                            <i class="zmdi zmdi-filter-list"></i>Filter By Year
+                        </button>
+                        &nbsp;&nbsp;&nbsp;
+                  <button style ="background-color: #343db4; color: white;"class="au-btn-filter" onclick="getmonthyear()">
+                      <i class="zmdi zmdi-filter-list"></i>Filter By Month
+                  </button>
+                        </div>
+                    </div> -->
+                    
+                      <div class="section__content section__content--p30">
+                          <div class="container-fluid">
+                              <div class="row">
+                 
+                    <div class="card bg-dark text-white" >
+                      <div class="card-header">
+                        <strong>Select </strong>Year/Month
+                      </div>
+                      <div class="card-body card-block">
+                        <div  class="container">
+                          <div class="row">
+                            <div class="">
+                            
+                              <div class="rs-select--dark rs-select--md m-r-10 rs-select--border">
+                                <select style="margin-left: 5px;" class="js-select" id="selectmonth" name="Monthselector">
+                                    <option selected="selected">Month</option>
+                                    <option value="JANUARY">January</option>
+                                    <option value="FEBRUARY">February</option>
+                                    <option value="MARCH">March</option>
+                                    <option value="APRIL">April</option>
+                                    <option value="MAY">May</option>
+                                    <option value="JUNE">June</option>
+                                    <option value="JULY">July</option>
+                                    <option value="AUGUST">August</option>
+                                    <option value="SEPTEMBER">September</option>
+                                    <option value="OCTOBER">October</option>
+                                    <option value="NOVEMBER">November</option>
+                                    <option value="DECEMBER">December</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+                    
+                            </div>
+                            <div class="col-mx-auto">
+                              <div class="rs-select--dark rs-select--md m-r-11 rs-select2--border">
+                                <select style="margin-left: 80px;" class="js-select" id="selectyear" name="yearselector">
+                                    <option selected="selected">Year</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+                           
+                            </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="card-footer">
+                        <button style ="   background-color: #4CAF50; color: white; "class="au-btn-filter" onclick="getcurrentyear()">
+                          <i class="zmdi zmdi-filter-list"></i>Filter By Year
+                      </button>
+                      &nbsp;&nbsp;&nbsp;
+                <button style ="background-color: #343db4; color: white;"class="au-btn-filter" onclick="getmonthyear()">
+                    <i class="zmdi zmdi-filter-list"></i>Filter By Month
+                </button>
+                      </div>
+                  </div>
+                
+                              </div>
+                          </div>
+                      </div>
+<!-- 
+        <div style="margin-left: 20px;" class="container">
+          <div class="row">
+            <div class="">
+            
+              <div class="rs-select--dark rs-select--md m-r-10 rs-select--border">
+                <select style="margin-left: 20px;" class="js-select" id="selectmonth" name="Monthselector">
+                    <option selected="selected">Month</option>
+                    <option value="JANUARY">January</option>
+                    <option value="FEBRUARY">February</option>
+                    <option value="MARCH">March</option>
+                    <option value="APRIL">April</option>
+                    <option value="MAY">May</option>
+                    <option value="JUNE">June</option>
+                    <option value="JULY">July</option>
+                    <option value="AUGUST">August</option>
+                    <option value="SEPTEMBER">September</option>
+                    <option value="OCTOBER">October</option>
+                    <option value="NOVEMBER">November</option>
+                    <option value="DECEMBER">December</option>
+                </select>
+                <div class="dropDownSelect2"></div>
+            </div>
+    
+            </div>
+            <div class="">
+              <div class="rs-select--dark rs-select--md m-r-11 rs-select2--border">
+                <select style="margin-left: 80px;" class="js-select" id="selectyear" name="yearselector">
+                    <option selected="selected">Year</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                </select>
+                <div class="dropDownSelect2"></div>
+            </div>
+           
+            </div>
+            </div>
+          </div>
+        </div> 
+ -->
                             
                         
                         <div class="row m-t-30">
@@ -730,8 +898,7 @@
                     
                                             <th>Account Number</th>
                                             <th>Bank Name</th>
-                                            <th>Basic pay</th>
-                                            
+                                            <th>Basic pay</th> 
                                             <th>DA</th> 
                                             <th>HRA</th>                                               
                                             <th>Net Pay</th>
