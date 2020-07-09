@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Profile</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="../new/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="../new/css/sb-admin-2.min.css" rel="stylesheet">
+
+
+
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--====== Favicon Icon ======-->
+  <link rel="shortcut icon" href="../assets/images/kaar.png" type="image/png">
+      
+  <!--====== Magnific Popup CSS ======-->
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+      
+  <!--====== Slick CSS ======-->
+  <link rel="stylesheet" href="../assets/css/slick.css">
+      
+  <!--====== Line Icons CSS ======-->
+  <link rel="stylesheet" href="../assets/css/LineIcons.css">
+      
+  <!--====== Bootstrap CSS ======-->
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  
+  <!--====== Default CSS ======-->
+  <link rel="stylesheet" href="../assets/css/default.css">
+  
+  <!--====== Style CSS ======-->
+  <link rel="stylesheet" href="../assets/css/style.css">
+ <script> 
+  function logout(){
+    localStorage.clear();
+    console.log("token is cleared");
+    setTimeout(() => {
+                    window.location.href = '/';
+    }, 2000);
+}
+</script>
+  <script>
+    function getprofile() {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("token", localStorage.getItem('token'));
+        
+        const raw = JSON.stringify({empID: localStorage.getItem('username') });
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+fetch("http://localhost:8000/empprofile", requestOptions)
+.then(response => response.json())
+.then(result => {
+
+const displayname = document.getElementById('displayname');
+displayname.textContent=`${result.emp_name}`;
+const displayemail = document.getElementById('displayemail');
+displayemail.textContent=`${result.emp_email.toLowerCase()}`;
+console.log(result);
+const name = document.getElementById('Name');
+name.value=result.emp_name;
+const email = document.getElementById('Email');
+email.value=result.emp_email.toLowerCase();
+const phone = document.getElementById('Phone');
+phone.value=result.emp_phone;
+const city = document.getElementById('City');
+city.value=result.emp_city;
+const state = document.getElementById('State');
+state.value=result.emp_state.toLowerCase();
+const country = document.getElementById('Country');
+country.value=result.emp_country.toLowerCase();
+const pincode = document.getElementById('Pincode');
+pincode.value=result.emp_pincode;
+const address = document.getElementById('Address');
+address.value=result.emp_address.toLowerCase();
+const fax = document.getElementById('FAX');
+fax.value=result.emp_fax;
+
+const company = document.getElementById('Company');
+company.value=result.emp_company;
+const department = document.getElementById('Department');
+department.value=result.emp_department;
+const jobrole = document.getElementById('Jobrole');
+jobrole.value=result.emp_jobrole;
+const reportsto = document.getElementById('Reportsto');
+reportsto.value=result.emp_reportsto;
+const hiredate = document.getElementById('Hiredate');
+hiredate.value=result.emp_hiredate;
+
+
+  
+})
+.catch(error => console.log('error', error));
+}
+
+//Updating the fields
+function updateprofile() {
+console.log('Update profile function called')
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("token", localStorage.getItem('token'));
+        const apiPayload = {
+            empID: localStorage.getItem('username'),
+            Name: document.getElementById('Name').value,
+            Email: document.getElementById('Email').value,
+            Phone: document.getElementById('Phone').value,
+            City: document.getElementById('City').value,
+            State: document.getElementById('State').value,
+            Country: document.getElementById('Country').value,
+            Pincode: document.getElementById('Pincode').value,
+            Address: document.getElementById('Address').value,
+            Company: document.getElementById('Company').value,
+            FAX: document.getElementById('FAX').value,
+            Department: document.getElementById('Department').value,
+            Jobrole: document.getElementById('Jobrole').value,
+            Reportsto: document.getElementById('Reportsto').value,
+            Hiredate: document.getElementById('Hiredate').value,
+
+
+        }
+        const raw = JSON.stringify(apiPayload);
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        console.log("he");
+
+fetch("http://localhost:8000/empupdateprofile", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+console.log(result.Status);
+ if(result.Status==='1 ')
+{
+    document.getElementById("successmsg").style.visibility = "visible";
+    
+    setTimeout(() => {
+        document.getElementById("successmsg").style.opacity = 0;
+ }, 2000);
+    
+changetoreadonly();
+}
+  
+else
+{
+  console.log("Cannot make the update");
+}
+
+})
+.catch(error => console.log('error', error));
+}
+
+var buttoncount=0;
+
+function changetowritable(){
+buttoncount++;
+console.log("button counter",buttoncount);
+var items = document.querySelectorAll('#Name,#Email,#Phone,#City,#State,#Country,#Pincode,#Address,#FAX,#Company,#Department,#Jobrole,#Reportsto,#Hiredate');
+for (var i = 0; i < items.length; i++)
+{
+items[i].readOnly = false;
+};
+document.getElementById('edit1').innerHTML = "UPDATE Changes";
+document.getElementById("icon1").className = "fa fa-lock fa-check-square-o";
+buttoncounter();
+
+}
+
+function changetoreadonly(){
+var items = document.querySelectorAll('#Name,#Email,#Phone,#City,#State,#Country,#Pincode,#Address,#FAX,#Company,#Department,#Jobrole,#Reportsto,#Hiredate');
+for (var i = 0; i < items.length; i++)
+{
+items[i].readOnly = true;
+};
+document.getElementById('edit1').innerHTML = "EDIT PROFILE";
+document.getElementById("icon1").className = "fa fa-lock fa-edit";
+
+
+}
+
+
+
+function buttoncounter(){
+if(buttoncount%2==0)
+{   
+console.log("buttoncount is even");
+updateprofile();
+
+}
+}
+
+
+</script>
+  <!-- Title Page-->
+  <title>Profile</title>
+
+  <!-- Fontfaces CSS-->
+  <link href="css/font-face.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+  <!-- Bootstrap CSS-->
+  <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+  <!-- Vendor CSS-->
+  <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+  <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+  <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+  <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+  <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+  <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+  <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+  <!-- Main CSS-->
+  <link href="css/theme.css" rel="stylesheet" media="all">
+
+
+
+
+
+
+</head>
+
+<body onload="getprofile()"  class="animsition">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="blank.html">
+        <div class="sidebar-brand-icon rotate-n-0">
+          <img src=../assets/images/k1.png />
+        </div>
+        <div class="sidebar-brand-text mx-3">KAAR TECH</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="blank.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="profile1.html">
+          <i class="fa fa-user"></i>
+          <span>Profile</span>
+        </a>
+       </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="leave1.html">
+          <i class="fa fa-files-o"></i>
+          <span>Leave Request</span>
+        </a>
+        
+      </li>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="leavedisp.html">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Leave Display</span>
+        </a>
+       </li>
+
+
+       <li class="nav-item">
+        <a class="nav-link" href="payslip.html">
+          <i class="fa fa-question-circle"></i>
+          <span>PaySlip</span>
+        </a>
+       </li>
+
+
+
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+              <a href="404.html" <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </a>
+              </div>
+            </div>
+          </form>
+<!-- EDIT PROFILE-->
+
+          <button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="changetowritable()">
+           <!-- <i class="fa fa-dot-circle-o"></i> EDIT PROFILE -->
+            <i id="icon1" class="fa fa-lock fa-edit"></i>&nbsp;
+            <span id="edit1">EDIT PROFILE</span>
+             
+        </button>
+       
+
+
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+            
+           
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">3+</span>
+              </a>
+              <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 12, 2019</div>
+                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-donate text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 7, 2019</div>
+                    $290.29 has been deposited into your account!
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 2, 2019</div>
+                    Spending Alert: We've noticed unusually high spending for your account.
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>
+
+            <!-- Nav Item - Messages -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">7</span>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  Message Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="font-weight-bold">
+                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                    <div class="small text-gray-500">Emily Fowler · 58m</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                    <div class="small text-gray-500">Jae Chun · 1d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
+                    <div class="status-indicator bg-warning"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+
+
+        <div class="user-area float-right">
+          <div class="account-item clearfix js-item-menu">
+              <div class="image">
+                  <img src="images/icon/prod1.png" alt="John Doe" />
+              </div>
+              <div class="account-dropdown js-dropdown">
+                  <div class="info clearfix">
+                      <div class="image">
+                          <a href="#">
+                              <img src="images/icon/prod1.png" alt="John Doe" />
+                          </a>
+                      </div>
+                      <div class="content">
+                          <h5 class="name">
+                              <p id="displayname"></p>
+                          </h5>
+                          <p id="displayemail" class="email"></p>
+                      </div>
+                  </div>
+                  <div class="account-dropdown__body">
+                      <div class="account-dropdown__item">
+                          <a href="profile1.html">
+                              <i class="zmdi zmdi-account"></i>Profile Settings</a>
+                      </div>
+                      <div class="account-dropdown__item">
+                          <a href="#">
+                              <i class="zmdi zmdi-settings"></i>Setting</a>
+                      </div>
+                      <div class="account-dropdown__item">
+                          <a href="#">
+                              <i class="zmdi zmdi-money-box"></i>Billing</a>
+                      </div>
+                  </div>
+                  <div class="account-dropdown__footer">
+                      <a href="#" onclick="logout()">
+                          <i class="zmdi zmdi-power"></i>Logout</a>
+                  </div>
+
+        </nav>
+        <!-- End of Topbar -->
+
+
+
+
+        
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-6" >
+                            <div class="card bg-dark text-white">
+                                <div class="card-header">
+                                    <strong>Employee</strong>
+                                    <small> Details</small>
+                                </div>
+                                <div class="card-body card-block">
+                                    <div class="form-group">
+                                        <label for="company" class=" form-control-label">Name</label>
+                                        <input readonly type="text" id="Name" placeholder=""class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="vat" class=" form-control-label">Email</label>
+                                        <input type="text" readonly id="Email" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="street" class=" form-control-label">Phone</label>
+                                        <input type="text" readonly id="Phone" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="city" class=" form-control-label">City</label>
+                                                <input type="text" readonly id="City" placeholder="" class="form-control">
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="postal-code" class=" form-control-label">State</label>
+                                                <input type="text" readonly id="State" placeholder=""
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="postal-code"  class=" form-control-label">Pincode</label>
+                                                <input type="text" readonly id="Pincode" placeholder=""
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-8">
+                                          <div class="form-group">
+                                              <label for="postal-code"  class=" form-control-label">FAX</label>
+                                              <input type="text" readonly id="FAX" placeholder=""
+                                                  class="form-control">
+                                          </div>
+                                      </div>
+
+
+
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="textarea-input" class=" form-control-label">Address</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <textarea name="textarea-input" readonly id="Address" rows="4"  class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="country" class=" form-control-label">Country</label>
+                                        <input type="text" readonly id="Country" placeholder="" class="form-control">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card bg-dark text-white">
+                                <div class="card-header">        <strong>Company</strong>
+                                    <small> Details</small></div>
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <h3 class="text-center title-2"></h3>
+                                    </div>
+                                    
+                                    <form action="" method="post" novalidate="novalidate">
+                      
+                                      <div class="form-group">
+                                            <label for="cc-payment" class="control-label mb-1">Company</label>
+                                            <input id="Company" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
+                                        </div>
+                                        
+
+                                        <div class="form-group">
+                                          <label for="cc-payment" class="control-label mb-1">Department</label>
+                                          <input id="Department" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
+                                      </div>
+                                      
+                                      <div class="form-group">
+                                        <label for="cc-payment" class="control-label mb-1">Jobrole</label>
+                                        <input id="Jobrole" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                      <label for="cc-payment" class="control-label mb-1">Reports To</label>
+                                      <input id="Reportsto" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="cc-payment" class="control-label mb-1">Hire Date</label>
+                                    <input id="Hiredate" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
+                                </div>
+                            
+                                
+
+                                    </form>
+                                    
+                                </div>
+                                
+                            </div>
+
+
+
+                            
+                            <br>
+                            <div id="successmsg" style="visibility: hidden;" class="alert alert-success" role="alert">                         
+                                Profile Updated Successful
+                            </div>
+                            <div id="failuremsg" style="visibility: hidden;" class="alert alert-danger" role="alert">                         
+                                Update Unsuccessful
+                            </div>
+                        </div>
+                     </div>
+
+                     
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <strong><p>© Made with love and Teamwork!.</p></strong>
+                                <p>jk</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Jquery JS-->
+<script src="vendor/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap JS-->
+<script src="vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<!-- Vendor JS       -->
+<script src="vendor/slick/slick.min.js">
+</script>
+<script src="vendor/wow/wow.min.js"></script>
+<script src="vendor/animsition/animsition.min.js"></script>
+<script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+</script>
+<script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="vendor/counter-up/jquery.counterup.min.js">
+</script>
+<script src="vendor/circle-progress/circle-progress.min.js"></script>
+<script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="vendor/select2/select2.min.js">
+</script>
+
+<!-- Main JS-->
+<script src="js/main.js"></script>
+<script type="text/javascript" src="../index.js"></script>
+
+<script type="text/javascript">
+    function checkToken() {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/';
+        }
+    }
+
+
+</script>
+
+
+<script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
+
+<!--====== Bootstrap js ======-->
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+
+<!--====== Slick js ======-->
+<script src="../assets/js/slick.min.js"></script>
+
+<!--====== Magnific Popup js ======-->
+<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+
+<!--====== Ajax Contact js ======-->
+<script src="../assets/js/ajax-contact.js"></script>
+
+<!--====== Isotope js ======-->
+<script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="../assets/js/isotope.pkgd.min.js"></script>
+
+<!--====== Scrolling Nav js ======-->
+<script src="../assets/js/jquery.easing.min.js"></script>
+<script src="../assets/js/scrolling-nav.js"></script>
+
+<!--====== Main js ======-->
+<script src="../assets/js/main.js"></script>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  
+
+<!--logout modal-->
+  
+
+
+
+
+
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="../new/vendor/jquery/jquery.min.js"></script>
+  <script src="../new/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../new/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../new/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

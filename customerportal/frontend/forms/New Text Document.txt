@@ -1,0 +1,5 @@
+../assets  - landing page's assets used here in blank.html its copied to the previous folder and used here
+blank - dashboard page
+template- structure for all pages
+form,credit - old pages not needed
+change button - structure for buttons 

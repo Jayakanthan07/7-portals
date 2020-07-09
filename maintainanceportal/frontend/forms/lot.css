@@ -1,0 +1,13 @@
+.table-data3 thead tr th {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 400;
+    text-transform: capitalize;
+    padding: 18px 120px;
+    padding-right: 10px;
+}
+
+.bold{
+
+    text-align: center;
+}

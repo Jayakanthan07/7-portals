@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Leave Request</title>
+
+
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="formassets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="formassets/vendors/iconfonts/ionicons/css/ionicons.css">
+    <link rel="stylesheet" href="formassets/vendors/iconfonts/typicons/src/font/typicons.css">
+    <link rel="stylesheet" href="formassets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="formassets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="formassets/vendors/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="formassets/vendors/icheck/skins/all.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="formassets/css/shared/style.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="formassets/css/demo_1/style.css">
+    <!-- End Layout styles -->
+    <link rel="shortcut icon" href="formassets/images/favicon.png" />
+
+
+
+
+
+
+
+
+  <!-- Custom fonts for this template-->
+  <link href="../new/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="../new/css/sb-admin-2.min.css" rel="stylesheet">
+
+
+
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--====== Favicon Icon ======-->
+  <link rel="shortcut icon" href="../assets/images/kaar.png" type="image/png">
+      
+  <!--====== Magnific Popup CSS ======-->
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+      
+  <!--====== Slick CSS ======-->
+  <link rel="stylesheet" href="../assets/css/slick.css">
+      
+  <!--====== Line Icons CSS ======-->
+  <link rel="stylesheet" href="../assets/css/LineIcons.css">
+      
+  <!--====== Bootstrap CSS ======-->
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  
+  <!--====== Default CSS ======-->
+  <link rel="stylesheet" href="../assets/css/default.css">
+  
+  <!--====== Style CSS ======-->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+
+  <link rel="stylesheet" href="centerstyle.css">
+ <script> 
+  function logout(){
+    localStorage.clear();
+    console.log("token is cleared");
+    setTimeout(() => {
+                    window.location.href = '/';
+    }, 2000);
+}
+
+function getprofile()
+         {
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("token", localStorage.getItem('token'));
+            const raw = JSON.stringify({ empID: localStorage.getItem('username') });
+            const requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            var employeeid = localStorage.getItem('username');
+
+            fetch("http://localhost:8000/empprofile", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+
+                    const displayname = document.getElementById('displayname');
+                    displayname.textContent = `${result.emp_name}`;
+                    const displayemail = document.getElementById('displayemail');
+                    displayemail.textContent = `${result.emp_email.toLowerCase()}`;
+                    getautoleave(employeeid);
+                    const EmployeeName = document.getElementById('EmployeeName');
+                    EmployeeName.value=result.emp_name;
+                    const emp_department = document.getElementById('Department');
+                    emp_department.value=result.emp_department;
+                })
+                .catch(error => console.log('error', error));
+          }
+
+            
+          getautoleave=(employeeid)=>{
+          var dt = new Date();
+                year  = dt.getYear() + 1900;
+                month = (dt.getMonth() + 1).toString().padStart(2, "0");
+                day   = dt.getDate().toString().padStart(2, "0");
+                console.log(employeeid+day+month+year);
+                var autoleaveid = employeeid+day+month+year;
+
+          const Leaveid = document.getElementById('Leaveid');
+          Leaveid.value=autoleaveid;
+          }
+
+
+
+//Updating the fields
+//display leave
+function createleaverequest()
+        {
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                console.log("createleaverequest endpoint called");
+                const apiPayload = {
+                                    empID : localStorage.getItem('username'),
+                                    leaveID : document.getElementById('Leaveid').value,
+                                    name : document.getElementById('EmployeeName').value,
+                                    department : document.getElementById('Department').value,
+                                    leavetype : document.getElementById('Leavetype').value,
+                                    emailto : document.getElementById('Emailto').value,
+                                    date_from : document.getElementById('Fromdate').value,
+                                    date_to : document.getElementById('Todate').value,
+                                    reason : document.getElementById('Reason').value,
+                                    
+                                }
+                const raw = JSON.stringify(apiPayload);
+                console.log(raw);
+                
+                const requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                };
+
+                fetch("http://localhost:8000/employeeleaverequest", requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result.Status);
+                        if(result.Status==='1')
+                        {console.log("Leave Request created successfully!");
+                        document.getElementById("successmsg").style.visibility = "visible";
+                        setTimeout(() => {
+                                document.getElementById("successmsg").style.opacity = 0;
+                        }, 2000);
+                        }
+                        else
+                        {
+                         console.log("Leave Request Failed!");
+                        }
+
+                    
+                    })
+                    .catch(error => {
+                        console.log('error', error);
+                        document.getElementById("failuremsg").style.visibility = "visible";
+                        setTimeout(() => {
+                                document.getElementById("failuremsg").style.opacity = 0;
+                        }, 2000);
+                    })
+                            
+                    
+                   
+
+        };
+
+      </script>
+
+
+  <!-- Title Page-->
+  <title>Profile</title>
+
+  <!-- Fontfaces CSS-->
+  <link href="css/font-face.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+  <!-- Bootstrap CSS-->
+  <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+  <!-- Vendor CSS-->
+  <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+  <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+  <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+  <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+  <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+  <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+  <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+  <!-- Main CSS-->
+  <link href="css/theme.css" rel="stylesheet" media="all">
+
+
+
+
+
+
+</head>
+
+<body onload="getprofile()"  class="animsition">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="blank.html">
+        <div class="sidebar-brand-icon rotate-n-0">
+          <img src=../assets/images/k1.png />
+        </div>
+        <div class="sidebar-brand-text mx-3">KAAR TECH</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="blank.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      
+<!-- Divider -->
+<hr class="sidebar-divider d-none d-md-block">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="profile1.html">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Profile</span>
+        </a>
+       </li>
+<!-- Divider -->
+<hr class="sidebar-divider d-none d-md-block">
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="invoice.html">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Invoice</span>
+        </a>
+        
+      </li>
+<!-- Divider -->
+<hr class="sidebar-divider d-none d-md-block">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="credit1.html">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Credit Memo</span>
+        </a>
+       </li>
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+       
+       <li class="nav-item">
+        <a class="nav-link" href="inquiry.html">
+          <i class="fa fa-question-circle"></i>
+          <span>Inquiry</span>
+        </a>
+       </li>
+
+       <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+       <li class="nav-item">
+        <a class="nav-link" href="salesorder.html">
+          <i class="fa fa-list"></i>
+          <span>Sales Order</span>
+        </a>
+       </li>
+
+       <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+       <li class="nav-item">
+        <a class="nav-link" href="payment.html">
+          <i class="fa fa-google-wallet"></i>
+          <span>Payment And Aging</span>
+        </a>
+       </li>
+
+
+
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+              <a href="404.html" <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </a>
+              </div>
+            </div>
+          </form>
+<!-- EDIT PROFILE-->
+<!--
+          <button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="changetowritable()">
+            <i class="fa fa-dot-circle-o"></i> EDIT PROFILE
+            <i id="icon1" class="fa fa-lock fa-edit"></i>&nbsp;
+            <span id="edit1">EDIT PROFILE</span>
+             
+        </button>
+       
+    -->
+
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+            
+           
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">3+</span>
+              </a>
+              <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 12, 2019</div>
+                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-donate text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 7, 2019</div>
+                    $290.29 has been deposited into your account!
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 2, 2019</div>
+                    Spending Alert: We've noticed unusually high spending for your account.
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>
+
+            <!-- Nav Item - Messages -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">7</span>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  Message Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="font-weight-bold">
+                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                    <div class="small text-gray-500">Emily Fowler · 58m</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                    <div class="small text-gray-500">Jae Chun · 1d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
+                    <div class="status-indicator bg-warning"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+<!--            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+              
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+        -->
+
+
+
+
+        <div class="user-area float-right">
+          <div class="account-item clearfix js-item-menu">
+              <div class="image">
+                  <img src="images/icon/prod1.png" alt="John Doe" />
+              </div>
+              <div class="account-dropdown js-dropdown">
+                  <div class="info clearfix">
+                      <div class="image">
+                          <a href="#">
+                              <img src="images/icon/prod1.png" alt="John Doe" />
+                          </a>
+                      </div>
+                      <div class="content">
+                          <h5 class="name">
+                              <p id="displayname"></p>
+                          </h5>
+                          <p id="displayemail" class="email"></p>
+                      </div>
+                  </div>
+                  <div class="account-dropdown__body">
+                      <div class="account-dropdown__item">
+                          <a href="profile1.html">
+                              <i class="zmdi zmdi-account"></i>Profile Settings</a>
+                      </div>
+                      <div class="account-dropdown__item">
+                          <a href="#">
+                              <i class="zmdi zmdi-settings"></i>Setting</a>
+                      </div>
+                      <div class="account-dropdown__item">
+                          <a href="#">
+                              <i class="zmdi zmdi-money-box"></i>Billing</a>
+                      </div>
+                  </div>
+                  <div class="account-dropdown__footer">
+                      <a href="#" onclick="logout()">
+                          <i class="zmdi zmdi-power"></i>Logout</a>
+                  </div>
+
+        </nav>
+        <!-- End of Topbar -->
+
+
+
+        
+        <div class="" id="harsh">
+          <div class="flex-container">
+          <div class="card bg-dark text-white">
+            <div class="card-header">
+              <strong>Employee</strong>
+              <small> Details</small>
+            </div>
+        
+            <div class="card-body card-block">
+              <form class="forms-sample">
+                <div class="form-group">
+                  <label for="company" class=" form-control-label">Employee Name</label>
+                  <input type="text" required id="EmployeeName" placeholder="Eg: Santhosh Narayanan" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="vat" class=" form-control-label">Department</label>
+                  <input type="text" required id="Department" placeholder="Eg: Human resources" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="company" class=" form-control-label">Leave ID</label>
+                  <input type="number" required id="Leaveid" placeholder="(Eg:your Emp ID + Date without separators)"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="vat" class=" form-control-label">Leave Type</label>
+                  <input type="text" required id="Leavetype" placeholder="(Eg: Personal/Medical/Onduty)" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="street" class=" form-control-label">Email To</label>
+                  <input type="text" required id="Emailto" placeholder="yourhr@gmail.com" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="Reason" class=" form-control-label">Reason</label>
+                </div>
+                <div class="row">
+                  <div class="col-6 col-md-12">
+                    <textarea name="textarea-input" required id="Reason" rows="3" maxlength="50"
+                      class="form-control"></textarea>
+                  </div>
+                </div>
+                &nbsp;
+        
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="street" class=" form-control-label">From Date</label>
+                      <input type="date" required id="Fromdate" placeholder="Eg: 10/02/2020" class="form-control">
+                    </div>
+                  </div>
+        
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="street" class=" form-control-label">To Date</label>
+                      <input type="date" required id="Todate" placeholder="Eg: 11/02/2020" class="form-control">
+                    </div>
+                  </div>
+        
+        
+        
+        
+                  <div class="card">
+        
+                    
+                    <button class="btn btn-primary btn-sm" onclick="createleaverequest()" type="submit">Submit Leave Request
+                      <i class="fa fa-check-square-o"></i>
+                  </button>
+            
+                  </div>
+              </form>
+            </div>
+          </div>
+          </div>
+        </div>
+      
+        <p id="successmsg" style="visibility: hidden;" class="alert alert-success" role="alert">                         
+          Leave Request successfully sent
+      </p>
+      <p id="failuremsg" style="visibility: hidden;" class="alert alert-danger" role="alert">                         
+          Leave Request failed to send
+      </p>                                              
+     
+    
+      
+  <footer>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="copyright">
+                <strong><p>© Made with love and Teamwork!.</p></strong>
+                <p>jk</p>
+            </div>
+        </div>
+    </div>
+  </footer> 
+
+    
+
+        <!-- Begin Page Content -->
+    
+
+          <!-- Page Heading -->
+        <!--
+          <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="row-mx-auto">
+                        <div class="col-mx-auto">
+                            <div class="card">
+                                <img class="card-img-top" src="images/icon/logo.png" alt="Card image cap">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-3">Kaar Technologies</h4>
+                                    <p class="card-text">KAAR is a company that gives its employees the freedom to come up with ideas and suggestions with respect to the organization's improvement .
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    -->            
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Jquery JS-->
+<script src="vendor/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap JS-->
+<script src="vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<!-- Vendor JS       -->
+<script src="vendor/slick/slick.min.js">
+</script>
+<script src="vendor/wow/wow.min.js"></script>
+<script src="vendor/animsition/animsition.min.js"></script>
+<script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+</script>
+<script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="vendor/counter-up/jquery.counterup.min.js">
+</script>
+<script src="vendor/circle-progress/circle-progress.min.js"></script>
+<script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="vendor/select2/select2.min.js">
+</script>
+
+<!-- Main JS-->
+<script src="js/main.js"></script>
+<script type="text/javascript" src="../index.js"></script>
+
+<script type="text/javascript">
+    function checkToken() {
+        if (!localStorage.getItem('token')) {
+            window.location.href = '/';
+        }
+    }
+
+
+</script>
+
+
+<script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="../assets/js/vendor/modernizr-3.7.1.min.js"></script>
+
+<!--====== Bootstrap js ======-->
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+
+<!--====== Slick js ======-->
+<script src="../assets/js/slick.min.js"></script>
+
+<!--====== Magnific Popup js ======-->
+<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+
+<!--====== Ajax Contact js ======-->
+<script src="../assets/js/ajax-contact.js"></script>
+
+<!--====== Isotope js ======-->
+<script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="../assets/js/isotope.pkgd.min.js"></script>
+
+<!--====== Scrolling Nav js ======-->
+<script src="../assets/js/jquery.easing.min.js"></script>
+<script src="../assets/js/scrolling-nav.js"></script>
+
+<!--====== Main js ======-->
+<script src="../assets/js/main.js"></script>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+<!--formassets-->
+  
+    <script src="formassets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="formassets/vendors/js/vendor.bundle.addons.js"></script>
+    
+    <script src="formassets/js/shared/off-canvas.js"></script>
+    <script src="formassets/js/shared/misc.js"></script>
+    
+
+
+
+
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="../new/vendor/jquery/jquery.min.js"></script>
+  <script src="../new/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../new/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../new/js/sb-admin-2.min.js"></script>
+
+
+
+
+
+</body>
+
+</html>

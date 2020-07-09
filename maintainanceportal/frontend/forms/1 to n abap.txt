@@ -1,0 +1,28 @@
+  method ZVTII_SI_IN_INSPECTION_RES~SI_IN_INSPECTION_RES.
+*** **** INSERT IMPLEMENTATION HERE **** ***
+    DATA: IT  TYPE TABLE OF ZTA_INSPECTION,
+       	WA  TYPE ZTA_INSPECTION,
+
+       	WA1 TYPE ZVTDT_INSPECTION_RES_INSPECTIO, // line TYPE 
+       	IT1 TYPE ZVTDT_INSPECTION_RES_INSPE_TAB. // Table TYPE
+
+ 	SELECT * FROM ZTA_INSPECTION INTO CORRESPONDING FIELDS OF TABLE IT
+   	WHERE eng_id = INPUT-MT_INSPECTION_REQ-eng_id.
+
+ 	LOOP AT IT INTO WA.
+   	CLEAR WA1.
+
+    WA1-LOT_ID = WA-LOT_ID.
+   	WA1-LOTCREATEDON = WA-LOTCREATEDON.
+   	WA1-place = WA-place.
+    WA1-startdate = WA-startdate.
+   	WA1-enddate = WA-enddate.
+    WA1-batch = WA-batch.
+   	WA1-status = WA-status.
+   	
+       APPEND WA1 TO IT1.
+ 	ENDLOOP.
+
+     OUTPUT-MT_inspection_RES-inspection = IT1.
+
+  endmethod.
