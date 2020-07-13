@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Incident Display</title>
+  <title>Display Production Order</title>
 
   <!-- Custom fonts for this template-->
   <link href="../new/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -79,7 +79,7 @@
                         for( i in result.proddisplay)
                     {   
                               ctr=i;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-                              document.getElementById("inc").innerHTML +='<td>'+ '<button type="button"  class="btn btn-outline-primary btn-sm" ">Edit</button>'+'<td class="user">'+ result.proddisplay[i].prodorder_id._text +'</td>'   +'<td>' + result.proddisplay[i].material_id._text   +'</td>'+ '<td>' + result.proddisplay[i].materialname._text   +'</td>' +'<td>'+ result.proddisplay[i].plant._text +'</td>'  +'<td>'+ result.proddisplay[i].status._text +'</td>' + '<td>'+ result.proddisplay[i].quantity._text +'</td>' ;
+                              document.getElementById("inc").innerHTML +='<td>'+ '<button type="button"  class="btn btn-primary btn-sm" "> <i id="icon1" class="fa fa-lock fa-edit"></i>&nbsp;Edit</button>'+'<td class="user">'+ result.proddisplay[i].prodorder_id._text +'</td>'   +'<td>' + result.proddisplay[i].material_id._text   +'</td>'+ '<td>' + result.proddisplay[i].materialname._text   +'</td>' +'<td>'+ result.proddisplay[i].plant._text +'</td>'  +'<td>'+ result.proddisplay[i].status._text +'</td>' + '<td>'+ result.proddisplay[i].quantity._text +'</td>' ;
                          
                          
                          console.log("Row number is ",ctr);
@@ -201,7 +201,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="planneddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Planned Order</span>
         </a>
        </li>
@@ -209,21 +209,21 @@
 
        <li class="nav-item">
         <a class="nav-link" href="plannedcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="plannededit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="proddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Production Order</span>
         </a>
        </li>
@@ -231,19 +231,17 @@
 
        <li class="nav-item">
         <a class="nav-link" href="prodcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create Production Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="prodedit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit Production Order</span>
         </a>
        </li>
-
-
 
 
       <!-- Divider -->
@@ -290,13 +288,21 @@
               <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
                  <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li> 
-                <li class="breadcrumb-item active" aria-current="page">Display Incident</li>
+                <li class="breadcrumb-item active" aria-current="page">Display Production Order</li>
               </ol>
             </nav>
           </div>
 
 
-
+          <div style="margin-right:200px;">
+            <a href="prodedit.html"><button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="">
+              <i id="icon1" class="fa fa-lock fa-edit"></i>&nbsp;
+              <span id="edit1">Edit Details</span>
+               
+          </button>
+         </a>
+        </div>
+  
 
 
 

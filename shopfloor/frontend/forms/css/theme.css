@@ -4741,6 +4741,9 @@ section {
 .table-data3 tbody td.process {
     color: #00ad5f;
 }
+.table-data3 tbody td.blu {
+    color: #2000ad;
+}
 
 .table-data3 tbody td.denied {
     color: #fa4251;

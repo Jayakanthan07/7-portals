@@ -143,40 +143,40 @@
               };
 
               fetch("http://localhost:8000/creditvendor", requestOptions)
-                  .then(response => response.json())
-                  .then(result => {
-                      
-                    for( i in result.vendorcredit)
-                  {   
-                     
-                       document.getElementById("spl").innerHTML +='<td>'+'<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' + '</td>' + '<td>'+ result.vendorcredit[i].CREDITMEMO_ID._text +'</td>' +'<td class="blu">'+ result.vendorcredit[i].VENDOR_ID._text +'</td>' +'<td>'+ result.vendorcredit[i].VENDOR_NAME._text +'</td>' +'<td>'+ result.vendorcredit[i].VENDOR_ADDRESS._text +'</td>' + '<td>' + result.vendorcredit[i].DATE._text +'</td>' +'<td>'+ result.vendorcredit[i].LINE_ITEM._text +'</td>' +'<td class="process">'+ result.vendorcredit[i].QTY._text +'</td>' +'<td class="process">'+ result.vendorcredit[i].AMOUNT._text + '</td>' +'<td class="process">'+ result.vendorcredit[i].TOTAL._text  +'</td>';
-                      
-                       $(".btn-sm").click(function () {
-                          var $row = $(this).closest("tr"),
-                              $tds = $row.find("td:nth-child(3)");
-                              
+                    .then(response => response.json())
+                    .then(result => {
+                        
+                      for( i in result.vendorcredit)
+                    {   
+                       
+                         document.getElementById("spl").innerHTML +='<td>'+'<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' + '</td>' + '<td>'+ result.vendorcredit[i].credit_id._text +'</td>' +'<td class="user">'+ result.vendorcredit[i].customer_id._text +'</td>'  + '<td>' + result.vendorcredit[i].date._text +'</td>' +'<td>'+ result.vendorcredit[i].materialname._text +'</td>' +'<td class="blu">'+ result.vendorcredit[i].quantity._text +'</td>' +'<td class="process">'+ result.vendorcredit[i].amount._text  +'</td>' +'<td class="process">'+ result.vendorcredit[i].total._text  +'</td>';
+                        
+                         $(".btn-sm").click(function () {
+                            var $row = $(this).closest("tr"),
+                                $tds = $row.find("td:nth-child(3)");
+                                
 
-                          $.each($tds, function () {
-                              localStorage.setItem("customerid",$(this).text());
-                              getresponse();
-                          });
+                            $.each($tds, function () {
+                                localStorage.setItem("customerid",$(this).text());
+                                getresponse();
+                            });
 
-                      });
-                      };
-              })
-              .catch(error => console.log('error', error));
-      }
+                        });
+                        };
+                })
+                .catch(error => console.log('error', error));
+        }
               
 
       
-          function printDiv(divName)
-          {
-                  var printContents=document.getElementById(divName).innerHTML;
-                  w=window.open();
-                  w.document.write(printContents);
-                  w.print();
-                  w.close();
-          }
+          // function printDiv(divName)
+          // {
+          //         var printContents=document.getElementById(divName).innerHTML;
+          //         w=window.open();
+          //         w.document.write(printContents);
+          //         w.print();
+          //         w.close();
+          // }
           
           function logout()
           {
@@ -547,7 +547,7 @@
         </nav>
         <!-- End of Topbar -->
 
-        <div style="display: flex;">
+        <div>
           
                                 
                                  <div class="row m-t-30">
@@ -560,13 +560,12 @@
                                                       <th>Action</th>
                                                       <th>Credit Memo ID</th>
                                                       <th>Customer ID</th>
-                                                      <th>Customer Name</th>
-                                                      <th>Customer Address</th>
                                                       <th>Date</th>
                                                       <th>Line Item</th>
                                                       <th>Quantity</th>
                                                       <th>Amount</th>
                                                       <th>Total Amount</th>
+      
                                                     </tr>
                                                 </thead>
                                                 <tbody id="spl">
@@ -588,7 +587,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Vendor Details</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Customer Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

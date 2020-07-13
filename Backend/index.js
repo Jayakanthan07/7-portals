@@ -12,8 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //Validating the credentials data from SAP Ztable ZTA_AUTH_DJ
-//PO done by Dheepak
-//Ztable made Dheepak
+
 
 app.post('/login', (req, res) => {
 	console.log("Cust_username,Cust_password");
@@ -1343,7 +1342,7 @@ app.post('/qualitychecklogin', (req, res) => {
 });
 
 
-//displaying the lot inspection details from ZTA_INSPECTION
+//displaying the lot inspection details from ZTA_
 //PO done by Siva and JK
 //Consumed by Siva
 
@@ -3219,7 +3218,7 @@ app.post('/quotation', (req, res) => {
 		'method': 'POST',
 		'port': 50000,
 		'host': 'dxktpipo.kaarcloud.com',
-		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_CUSTOMER&receiverParty=&receiverService=&interface=SI_INQUIRY_REQ&interfaceNamespace=http://crimson-fern.com/customer',
+		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_VLogin&receiverParty=&receiverService=&interface=SI_OUT_vendor_quotation_req&interfaceNamespace=http://crimson-fern.com/vendor',
 		'headers': {
 			'Content-Type': 'application/xml',
 			'Authorization': 'Basic UE9VU0VSOmthYXIyMDIw',
@@ -3231,12 +3230,12 @@ app.post('/quotation', (req, res) => {
 	console.log(venID);
 	
 	
-	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cus="http://crimson-fern.com/customer">
+	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ven="http://crimson-fern.com/vendor">
 	<soapenv:Header/>
 	<soapenv:Body>
-	   <cus:MT_INQUIRY_REQ>
-		  <CUST_ID>${venID}</CUST_ID>
-	   </cus:MT_INQUIRY_REQ>
+	   <ven:MT_vendor_quotation_req>
+		  <vendor_id>${venID}</vendor_id>
+	   </ven:MT_vendor_quotation_req>
 	</soapenv:Body>
  </soapenv:Envelope>`;
 	const req1 = http.request(options, function (res1) {
@@ -3254,7 +3253,7 @@ app.post('/quotation', (req, res) => {
 			const data = parser.xml2json(xml, {compact: true, spaces: 4});
 			console.log('recieved from Soap',data);
 			const resp = JSON.parse(data)['SOAP:Envelope'];
-			var quotationresponse = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_INQUIRY_RES']['INQUIRY'];
+			var quotationresponse = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_vendor_quotation_res']['quotation'];
 			
 
 			res.send({
@@ -3280,7 +3279,7 @@ app.post('/creditvendor', (req, res) => {
 		'method': 'POST',
 		'port': 50000,
 		'host': 'dxktpipo.kaarcloud.com',
-		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_CUSTOMER&receiverParty=&receiverService=&interface=SI_CREDITMEMO_REQ&interfaceNamespace=http://crimson-fern.com/customer',
+		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_VLogin&receiverParty=&receiverService=&interface=SI_OUT_Vcreditmemo_req&interfaceNamespace=http://crimson-fern.com/vendor',
 		'headers': {
 			'Content-Type': 'application/xml',
 			'Authorization': 'Basic UE9VU0VSOmthYXIyMDIw',
@@ -3295,12 +3294,12 @@ app.post('/creditvendor', (req, res) => {
 	console.log(venID);
 	
 
-	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cus="http://crimson-fern.com/customer">
+	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ven="http://crimson-fern.com/vendor">
 	<soapenv:Header/>
 	<soapenv:Body>
-	   <cus:MT_CREDITMEMO_REQ>
-		  <CUST_ID>${venID}</CUST_ID>
-	   </cus:MT_CREDITMEMO_REQ>
+	   <ven:MT_vendor_creditmemo_req>
+		  <vendor_id>${venID}</vendor_id>
+	   </ven:MT_vendor_creditmemo_req>
 	</soapenv:Body>
  </soapenv:Envelope>`;
 	const req1 = http.request(options, function (res1) {
@@ -3322,7 +3321,7 @@ app.post('/creditvendor', (req, res) => {
 		
 			const resp = JSON.parse(data)['SOAP:Envelope'];
 			console.log(resp);
-			var vendorcredit = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_CREDITMEMO_RES']['CREDITMEMO'];
+			var vendorcredit = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_vendor_creditmemo_res']['credit'];
 			
 			console.log(vendorcredit);
 
@@ -3346,6 +3345,7 @@ app.post('/creditvendor', (req, res) => {
 	req1.write(postData);
 
 	req1.end();
+
 });
 
 //Purchase order display from table ZTA_PLANNEDORDER
@@ -3358,7 +3358,7 @@ app.post('/purchaseorder1', (req, res) => {
 		'method': 'POST',
 		'port': 50000,
 		'host': 'dxktpipo.kaarcloud.com',
-		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_ShopfloorPortal&receiverParty=&receiverService=&interface=SI_OUT_shop_planned_req&interfaceNamespace=http://crimson-fern.com/shopfloor',
+		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_VLogin&receiverParty=&receiverService=&interface=SI_OUT_Vpurchaseorder_req&interfaceNamespace=http://crimson-fern.com/vendor',
 		'headers': {
 			'Content-Type': 'application/xml',
 			'Authorization': 'Basic UE9VU0VSOmthYXIyMDIw',
@@ -3370,12 +3370,12 @@ app.post('/purchaseorder1', (req, res) => {
 	console.log(eng_id);
 	
 	
-	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="http://crimson-fern.com/shopfloor">
+	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ven="http://crimson-fern.com/vendor">
 	<soapenv:Header/>
 	<soapenv:Body>
-	   <shop:MT_shop_planned_req>
-		  <eng_id>${eng_id}</eng_id>
-	   </shop:MT_shop_planned_req>
+	   <ven:MT_vendor_purchaseorder_req>
+		  <vendor_id>${eng_id}</vendor_id>
+	   </ven:MT_vendor_purchaseorder_req>
 	</soapenv:Body>
  </soapenv:Envelope>`
 	const req1 = http.request(options, function (res1) {
@@ -3394,10 +3394,10 @@ app.post('/purchaseorder1', (req, res) => {
 			console.log('recieved from Soap',data);
 			const resp = JSON.parse(data)['SOAP:Envelope'];
 			console.log('Parsing data: ',resp);
-			var planneddisplay = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_shop_planned_res']['plans'];
-			console.log("final parsing: ",planneddisplay);
+			var purchasedisplay = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_vendor_purchaseorder_res']['purchase'];
+			console.log("final parsing: ",purchasedisplay);
 			res.send({
-				planneddisplay : planneddisplay,
+				purchasedisplay : purchasedisplay,
 				
 			});
 		});
@@ -3423,7 +3423,7 @@ app.post('/goodsreciept', (req, res) => {
 		'method': 'POST',
 		'port': 50000,
 		'host': 'dxktpipo.kaarcloud.com',
-		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_ShopfloorPortal2&receiverParty=&receiverService=&interface=SI_OUT_shop_prod_req&interfaceNamespace=http://crimson-fern.com/shopfloor',
+		'path': 'http://dxktpipo.kaarcloud.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BC_VLogin&receiverParty=&receiverService=&interface=SI_OUT_vendor_goods_req&interfaceNamespace=http://crimson-fern.com/vendor',
 		'headers': {
 			'Content-Type': 'application/xml',
 			'Authorization': 'Basic UE9VU0VSOmthYXIyMDIw',
@@ -3435,12 +3435,12 @@ app.post('/goodsreciept', (req, res) => {
 	console.log(eng_id);
 	
 	
-	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:shop="http://crimson-fern.com/shopfloor">
+	const postData =  `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ven="http://crimson-fern.com/vendor">
 	<soapenv:Header/>
 	<soapenv:Body>
-	   <shop:MT_shop_prod_req>
-		  <eng_id>${eng_id}</eng_id>
-	   </shop:MT_shop_prod_req>
+	   <ven:MT_vendor_goods_req>
+		  <vendor_id>${eng_id}</vendor_id>
+	   </ven:MT_vendor_goods_req>
 	</soapenv:Body>
  </soapenv:Envelope>`
 	const req1 = http.request(options, function (res1) {
@@ -3459,7 +3459,7 @@ app.post('/goodsreciept', (req, res) => {
 			console.log('recieved from Soap',data);
 			const resp = JSON.parse(data)['SOAP:Envelope'];
 			console.log('Parsing data: ',resp);
-			var grdisplay = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_shop_prod_res']['prod'];
+			var grdisplay = JSON.parse(data)['SOAP:Envelope']['SOAP:Body']['ns0:MT_vendor_goods_res']['goods'];
 			console.log("final parsing: ",grdisplay);
 			res.send({
 				grdisplay : grdisplay,

@@ -171,7 +171,7 @@
                     for( i in result.grdisplay)
                 {   
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-                          document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'+'</td>'+'<td class="user">'+ result.grdisplay[i].prodorder_id._text +'</td>'   +'<td class="blu">' + result.grdisplay[i].material_id._text   +'</td>'+ '<td>' + result.grdisplay[i].materialname._text   +'</td>' +'<td '+ (result.grdisplay[i].status._text === 'Approved' ? ' class="process"' : 'class="denied"') + '>'+ result.grdisplay[i].status._text +'</td>' + '<td>'+ result.grdisplay[i].quantity._text +'</td>'+'<td class="process">'+ result.grdisplay[i].plant._text +'</td>' ;
+                          document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'+'</td>'+'<td class="user">'+ result.grdisplay[i].goods_id._text +'</td>'   +'<td class="blu">' + result.grdisplay[i].customer_id._text   +'</td>'+ '<td>' + result.grdisplay[i].materialname._text   +'</td>' +'<td '+ (result.grdisplay[i].status._text === 'Approved' ? ' class="process"' : 'class="denied"') + '>' + result.grdisplay[i].status._text +'</td>' + '<td>'+ result.grdisplay[i].goodsdate._text +'</td>'+'<td class="process">'+ result.grdisplay[i].quantity._text +'</td>' + '</td>'+'<td class="process">'+ result.grdisplay[i].total._text +'</td>' ;
                      
                      
                      
@@ -552,7 +552,7 @@ setTimeout(() => {
                       </div>
                       <div class="content">
                           <h5 class="name">
-                              <p id="displayname"></p>
+                         Vendor ID :     <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
                       </div>
@@ -597,6 +597,7 @@ setTimeout(() => {
                                               <th>Customer ID</th>
                                               <th>Material Name</th>
                                               <th>Status</th>
+                                              <th>Date</th>
                                               <th>Quantity</th>
                                               <th>Total</th>
                                                                 
@@ -634,7 +635,7 @@ setTimeout(() => {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Vendor Details</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Customer Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

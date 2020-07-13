@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   
 
+<!-- save file -->
 
   <script>
 
@@ -600,7 +601,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Vendor Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="saveFile()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -619,18 +620,17 @@
           <h5>Vendor EntityType</h5><p id="ven_entitytype"></p>
           <h5>Vendor regType</h5><p id="ven_regtype"></p>
           </div>  
-          
-      </form>
+          <input type="button" id="bt" class="btn btn-primary" value="Save data to file" onclick="saveFile()" />  
+        </form>
 
-
-
-
-
-
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <!-- <button type="button" class="btn btn-primary" onclick="saveFile()">Save</button> -->
+        <!-- <input type="button" id="bt" class="btn btn-primary" value="Save data to file" onclick="saveFile()" /> -->
+
+  
       </div>
     </div>
   </div>
@@ -646,6 +646,60 @@
 
                         
 
+      
+<script>
+  function saveFile() {
+    
+    console.log("save called")
+      // Get the data from each element on the form.
+    const Vendorname = document.getElementById('ven_name');
+      const Vendoremail = document.getElementById('ven_email');
+      const Vendorcity = document.getElementById('ven_city');
+      const VendorPhone = document.getElementById('ven_phone');
+      const Vendorcountry = document.getElementById('ven_country');
+      const Vendorpincode = document.getElementById('ven_pincode');
+      const Vendorstate = document.getElementById('ven_state');
+      const Vendoraddress = document.getElementById('ven_address');
+      const VendorGSTIN = document.getElementById('ven_gstin');
+      const VendorPAN = document.getElementById('ven_pan');
+      const Vendorentitytype = document.getElementById('ven_entitytype');
+      const Vendorregtype = document.getElementById('ven_regtype');
+      // This variable stores all the data.
+
+   console.log("data called");
+      const data = 
+          '\r Vendor Name: ' + Vendorname.textContent + ' \r\n ' + 
+          'Vendor email: ' +Vendoremail.textContent + ' \r\n ' + 
+          'Vendor city: ' + Vendorcity.textContent + ' \r\n ' + 
+          'Vendor Phone: ' + VendorPhone.textContent + ' \r\n ' + 
+          'Vendor country: ' + Vendorcountry.textContent; + ' \r\n ' +
+          'Vendor pincode: ' + Vendorpincode.textContent; + ' \r\n ' +
+          'Vendor state: ' + Vendorstate.textContent; + ' \r\n ' +
+          'Vendor address: ' + Vendoraddress.textContent; +' \r\n ' +
+          'Vendor GSTIN: ' + VendorGSTIN.textContent; + ' \r\n ' +
+          'Vendor PAN: ' + VendorPAN.textContent; + ' \r\n ' +
+          'Vendor entitytype: ' + Vendorentitytype.textContent; +' \r\n ' +
+          'Vendor regtype: ' + Vendorregtype.textContent;
+      // Convert the text to BLOB.
+      const textToBLOB = new Blob([data], { type: 'text/plain' });
+      const sFileName = 'formData.txt';	   // The file to save the data.
+
+      const newLink = document.createElement("a");
+      newLink.download = sFileName;
+
+      if (window.webkitURL != null) {
+          newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+      }
+      else {
+          newLink.href = window.URL.createObjectURL(textToBLOB);
+          newLink.style.display = "none";
+          document.body.appendChild(newLink);
+      }
+
+      newLink.click(); 
+      console.log("Process done!!")
+  }
+</script>
 
 
 

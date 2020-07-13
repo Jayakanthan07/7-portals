@@ -65,29 +65,24 @@
 
 
   <script>
-    function getprofile() {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("token", localStorage.getItem('token'));
-        const raw = JSON.stringify({ custID: localStorage.getItem('username') });
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
 
-fetch("http://localhost:8000/profile", requestOptions)
-.then(response => response.json())
-.then(result => {
+function getprofile()
+     {
+       engID= localStorage.getItem("username");
+       const displayname = document.getElementById('displayname');
+       displayname.textContent = engID ;
+    }
 
-const displayname = document.getElementById('displayname');
-displayname.textContent=`${result.cust_name}`;
-const displayemail = document.getElementById('displayemail');
-displayemail.textContent=`${result.cust_email.toLowerCase()}`;
-})
-.catch(error => console.log('error', error));
+    
+function logout(){
+  localStorage.clear();
+  console.log("token is cleared");
+  setTimeout(() => {
+                  window.location.href = '/';
+  }, 1000);
 }
+
+
 </script>
 
 
@@ -151,51 +146,27 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="profile1.html">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Profile</span>
-        </a>
-       </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="invoice.html">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Invoice</span>
-        </a>
-        
-      </li>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="credit1.html">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Credit Memo</span>
+        <a class="nav-link" href="workorderdisplay.html">
+          <i class="fas fa-fw fa-television"></i>
+          <span>Display Work Order</span>
         </a>
        </li>
 
 
        <li class="nav-item">
-        <a class="nav-link" href="inquiry.html">
-          <i class="fa fa-question-circle"></i>
-          <span>Inquiry</span>
-        </a>
-       </li>
-
-
-       <li class="nav-item">
-        <a class="nav-link" href="salesorder.html">
-          <i class="fa fa-list"></i>
-          <span>Sales Order</span>
+        <a class="nav-link" href="workordercreate.html">
+          <i class="fa fa-clipboard"></i>
+          <span>Create Work Order</span>
         </a>
        </li>
 
        <li class="nav-item">
-        <a class="nav-link" href="payment.html">
-          <i class="fa fa-google-wallet"></i>
-          <span>Payment And Aging</span>
+        <a class="nav-link" href="edit2.html">
+          <i class="fa fa-edit"></i>
+          <span>Edit Work Order </span>
         </a>
        </li>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -223,16 +194,15 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+           <div class="input-group" style = "margin-top: 15px;">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
+                 <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">404</li>
+              </ol>
+            </nav>
+          </div>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -401,18 +371,18 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
         <div class="user-area float-right">
           <div class="account-item clearfix js-item-menu">
               <div class="image">
-                  <img src="images/icon/avatar-01.png" alt="John Doe" />
+                  <img src="images/icon/prod1.png" alt="John Doe" />
               </div>
               <div class="account-dropdown js-dropdown">
                   <div class="info clearfix">
                       <div class="image">
                           <a href="#">
-                              <img src="images/icon/avatar-01.png" alt="John Doe" />
+                              <img src="images/icon/prod1.png" alt="John Doe" />
                           </a>
                       </div>
                       <div class="content">
                           <h5 class="name">
-                              <p id="displayname"></p>
+                       Engineer ID :        <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
                       </div>
@@ -432,8 +402,8 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
                       </div>
                   </div>
                   <div class="account-dropdown__footer">
-                      <a href="../landing page.html">
-                          <i class="zmdi zmdi-power"></i>Logout</a>
+                      <a href="" onclick="logout()">
+                          <i class="zmdi zmdi-power" onclick="logout()"></i>Logout</a>
                   </div>
 
         </nav>

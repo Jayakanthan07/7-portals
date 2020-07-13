@@ -313,7 +313,7 @@ setTimeout(() => {
       
       <li class="nav-item">
         <a class="nav-link" href="planneddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Planned Order</span>
         </a>
        </li>
@@ -321,21 +321,21 @@ setTimeout(() => {
 
        <li class="nav-item">
         <a class="nav-link" href="plannedcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="plannededit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="proddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Production Order</span>
         </a>
        </li>
@@ -343,18 +343,17 @@ setTimeout(() => {
 
        <li class="nav-item">
         <a class="nav-link" href="prodcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create Production Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="prodedit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit Production Order</span>
         </a>
        </li>
-
 
       <!-- Nav Item - Pages Collapse Menu -->
       
@@ -397,7 +396,7 @@ setTimeout(() => {
             
             <strong>Search The Order ID To Edit :</strong>&nbsp;&nbsp;&nbsp;
             <div class="input-group-append">
-            <input class="au-input au-input--xl" type="text" id="porder_id2" placeholder="Eg:77704072020" />
+            <input class="au-input au-input--xl" type="text" id="porder_id2" placeholder="Eg: 1001" />
             <button class="btn btn-primary btn-large" onclick="plannedsearch()" type="submit" style = "margin-left: 5px;">Search
               <i class="fas fa-search fa-sm"></i>
             </button>
@@ -722,7 +721,7 @@ setTimeout(() => {
     <div class="card-body card-block mx-auto">
         <div class="form-group">
             <label for="company" class=" form-control-label"><strong>Order ID</strong></label>
-            <input  type="text" readonly required id="porder_id" placeholder="Eg: Voltas"class="form-control">
+            <input  type="text" readonly required id="porder_id" placeholder=""class="form-control">
         </div>
         <div class="form-group">
           <label for="company" class=" form-control-label"><strong>Material ID</strong></label>
@@ -734,11 +733,11 @@ setTimeout(() => {
     </div>
         <div class="form-group">
             <label for="vat" class=" form-control-label"><strong>Plant Name</strong></label>
-            <input type="text" required readonly id="plant" placeholder="Eg: Krishna Kumar" class="form-control">
+            <input type="text" required readonly id="plant" placeholder="" class="form-control">
         </div>
         <div class="form-group">
             <label for="vat" class=" form-control-label"><strong>MRP</strong></label>
-            <input type="text" required id="mrp" readonly placeholder="Eg: Mr.Patel" class="form-control">
+            <input type="text" required id="mrp" readonly placeholder="" class="form-control">
         </div>
         <!-- <div class="form-group">
             <label for="vat" class=" form-control-label"><strong>Order Start Date</strong></label>
@@ -751,7 +750,7 @@ setTimeout(() => {
   
         <div class="form-group">
           <label for="street" class=" form-control-label"><strong>Plant Open</strong></label>
-          <input type="text" required id="plndopen" readonly placeholder="Low/medium/high/urgent" class="form-control">
+          <input type="text" required id="plndopen" readonly placeholder="" class="form-control">
       </div>
       <div class="form-group">
         <label for="street" class=" form-control-label"><strong>Quantity</strong></label>
@@ -761,14 +760,14 @@ setTimeout(() => {
       <div class="col-6">
         <div class="form-group">
           <label for="street" class=" form-control-label">Order Start Date</label>
-          <input type="text" required id="orderstart" readonly placeholder="Eg: 10/02/2020" class="form-control">
+          <input type="text" required id="orderstart" readonly placeholder="" class="form-control">
         </div>
       </div>
   
       <div class="col-6">
         <div class="form-group">
           <label for="street" class=" form-control-label">Order End Date</label>
-          <input type="text" required id="orderfinish" readonly placeholder="Eg: 11/02/2020" class="form-control">
+          <input type="text" required id="orderfinish" readonly placeholder="" class="form-control">
         </div>
       </div>
                           
@@ -785,10 +784,10 @@ setTimeout(() => {
   </div>
   
   <div id="successmsg" style="visibility: hidden;" class="alert alert-success" role="alert">
-    Order Created successfully!!!
+    Order Edited successfully!!!
     </div>
     <div id="failuremsg" style="visibility: hidden;" class="alert alert-danger" role="alert">
-     Order Creation Unsuccessful
+     Order Edit Unsuccessful
     </div>
   
   </div>

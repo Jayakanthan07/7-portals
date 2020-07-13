@@ -53,6 +53,12 @@
 
    
     <script>
+       function getprofile()
+     {
+       engID= localStorage.getItem("username");
+       const displayname = document.getElementById('displayname');
+       displayname.textContent = engID ;
+    }
 
       //Display profile
       // function getprofile() {
@@ -82,6 +88,7 @@
 
       //display Lot inspection
       function getlotrecordings() {
+        getprofile();
               const myHeaders = new Headers();
               myHeaders.append("Content-Type", "application/json");
               myHeaders.append("token", localStorage.getItem('token'));
@@ -196,7 +203,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="inspectionlot.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-question-circle"></i>
           <span>Inspection Lot</span>
         </a>
        </li>
@@ -204,7 +211,7 @@
 
        <li class="nav-item">
         <a class="nav-link" href="lotresult.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-folder"></i>
           <span>Lot Result Record</span>
         </a>
        </li>
@@ -237,16 +244,15 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+          <div class="input-group" style = "margin-top: 15px;">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
+                 <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Lot Result Record</li>
+              </ol>
+            </nav>
+          </div>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -396,7 +402,7 @@
                       </div>
                       <div class="content">
                           <h5 class="name">
-                              <p id="displayname"></p>
+                            Engineer ID :       <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
                       </div>

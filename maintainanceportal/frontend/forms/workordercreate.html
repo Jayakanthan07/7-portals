@@ -54,53 +54,15 @@
 
 
   <script>
-
-    //Display profile
-    function getprofile()
+       function getprofile()
      {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("token", localStorage.getItem('token'));
-        const raw = JSON.stringify({ engID: localStorage.getItem('username') });
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+       engID= localStorage.getItem("username");
+       const displayname = document.getElementById('displayname');
+       displayname.textContent = engID ;
+    }
 
-    //     var engineerid = localStorage.getItem('username');
-    //     // fetch("http://localhost:8000/employeeprofile", requestOptions)
-    //     //     .then(response => response.json())
-    //     //     .then(result => {
-
-    //     //         const displayname = document.getElementById('displayname');
-    //     //         displayname.textContent = `${result.emp_name}`;
-    //     //         const displayemail = document.getElementById('displayemail');
-    //     //         displayemail.textContent = `${result.emp_email.toLowerCase()}`;
-    //     //         getautoleave(employeeid);
-    //     //         const EmployeeName = document.getElementById('EmployeeName');
-    //     //         EmployeeName.value=result.emp_name;
-    //     //         const emp_department = document.getElementById('Department');
-    //     //         emp_department.value=result.emp_department;
-    //     //     })
-    //     //     .catch(error => console.log('error', error));
-        
-    //     getautoincident = (engineerid) => {
-    //         var dt = new Date();
-    //         year = dt.getYear() + 1900;
-    //         month = (dt.getMonth() + 1).toString().padStart(2, "0");
-    //         day = dt.getDate().toString().padStart(2, "0");
-    //         console.log(engineerid + day + month + year);
-    //         var autoincidentid = engineerid + day + month + year;
-
-    //         const incidentid = document.getElementById('incidentid');
-    //         incidentid.value = autoincidentid;
-    //     }  
     
-    //     getautoincident(engineerid);
-
-     }
+     
 
         
       
@@ -250,23 +212,22 @@ setTimeout(() => {
 
       <li class="nav-item">
         <a class="nav-link" href="workorderdisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Work Order</span>
         </a>
-        
        </li>
 
 
        <li class="nav-item">
         <a class="nav-link" href="workordercreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create Work Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="edit2.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit Work Order </span>
         </a>
        </li>
@@ -319,8 +280,8 @@ setTimeout(() => {
     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
       <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
        <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li>
-       <li class="breadcrumb-item"><a href="incidentdisplay.html">Display Incident</a></li> 
-      <li class="breadcrumb-item active" aria-current="page">Create Incident</li>
+       
+      <li class="breadcrumb-item active" aria-current="page">Create Work Order</li>
     </ol>
   </nav>
 </div>
@@ -493,7 +454,7 @@ setTimeout(() => {
                       </div>
                       <div class="content">
                           <h5 class="name">
-                              <p id="displayname"></p>
+                   Engineer Id :            <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
                       </div>

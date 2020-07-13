@@ -105,7 +105,7 @@
                     //     console.log(result.salesresponse[i].dateofdelivery._text);
                     //     console.log(result.salesresponse[i].totalamount._text);
                     //     // document.getElementById("spl").innerHTML += '<div class="row p-3" id="myrow"><div class="col text-left"><div class="card border border-secondary"><input hidden type="text" value="' + result.salesresponse[i].sales_id + '" name="name2" id="' + i + '"><h5 class="card-header" id="name" name="name">' + result.salesresponse[i].cust_id + '</h5><div class="card-body"><h5 class="card-title">' + result.salesresponse[i].vendor_id + '</h5><a  onclick="setcook(' + i.toString() + ')" class="btn btn-secondary" style="color:white!important">Scan now</a></div></div></div></div>';
-                         document.getElementById("ord").innerHTML +='<td>'+'<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' + '</td>' + '<td>'+ result.salesresponse[i].SALESID._text +'</td>' +'<td>'+ result.salesresponse[i].INQUIRYTYPE._text +'</td>' +'<td>'+ result.salesresponse[i].SALES_ORG._text +'</td>' +'<td>'+ result.salesresponse[i].SALES_GRP._text +'</td>' + '<td>' + result.salesresponse[i].ITEMNO._text +'</td>' +'<td>'+ result.salesresponse[i].ITEMDESC._text +'</td>' +'<td class="process">'+ result.salesresponse[i].QUANTITY._text +'</td>' +'<td class="process">'+ result.salesresponse[i].TOTAL._text +'</td>' +'<td class="process">'+ result.salesresponse[i].DELIVERYTIME._text +'</td>' +'<td class="process">'+ result.salesresponse[i].PO_DATE._text +'</td>' +'<td class="process">'+ result.salesresponse[i].PO_NUM._text +'</td>';
+                         document.getElementById("ord").innerHTML +=  '<td>'+ result.salesresponse[i].SALESID._text +'</td>' +'<td>'+ result.salesresponse[i].INQUIRYTYPE._text +'</td>' +'<td>'+ result.salesresponse[i].SALES_ORG._text +'</td>' +'<td>'+ result.salesresponse[i].SALES_GRP._text +'</td>' + '<td>' + result.salesresponse[i].ITEMNO._text +'</td>' +'<td>'+ result.salesresponse[i].ITEMDESC._text +'</td>' +'<td class="process">'+ result.salesresponse[i].QUANTITY._text +'</td>' +'<td class="process">'+ result.salesresponse[i].TOTAL._text +'</td>' +'<td class="process">'+ result.salesresponse[i].DELIVERYTIME._text +'</td>' +'<td class="process">'+ result.salesresponse[i].PO_DATE._text +'</td>' +'<td class="process">'+ result.salesresponse[i].PO_NUM._text +'</td>';
                          };
                     
                    
@@ -488,7 +488,7 @@
                                     <table class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
-                                               <th>Details</th>
+                                               <!-- <th>Details</th> -->
                                                 <th>Sales ID</th>
                                                 <th>Inquiry Type</th>
                                                 <th>Sales Org.</th>

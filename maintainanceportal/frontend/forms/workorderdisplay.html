@@ -52,10 +52,9 @@
 
   <script>
   //Display profile
-  function getprofile(){
-    // displayplanned();
+  function getprofile()
+     {
        engID= localStorage.getItem("username");
-     // WO_TYPE = document.getElementById("wotype");
        const displayname = document.getElementById('displayname');
        displayname.textContent = engID ;
     }
@@ -90,8 +89,8 @@
                   .then(result => {             
                     document.getElementById("wo").innerHTML="";         
                       for( i in result.wodisplay)
-                  {                                                                                                                               //data-toggle = "modal" data-target="#exampleModalLong"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                       document.getElementById("wo").innerHTML +='<td>'+ '<button type="button"  class="btn btn-outline-primary btn-sm" ">Edit</button>'+'</td>'+'<td class="user">'+ result.wodisplay[i].WO_ID._text +'</td>'  + '<td>' + result.wodisplay[i].SEND_TO._text   +'</td>' +'<td>'+ result.wodisplay[i].PRIORITY._text +'</td>'  +'<td>'+ result.wodisplay[i].DUE_DATE._text +'</td>'+'<td>'+ result.wodisplay[i].WO_NAME._text +'</td>'  +'<td>'+ result.wodisplay[i].INSTRUCTIONS._text +'</td>';
+                  {                                                                                                                               //data-toggle = "modal" data-target="#exampleModalLong"    '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                       document.getElementById("wo").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-lock fa-edit"></i> Edit </button>'+'</td>'+'<td class="user">'+ result.wodisplay[i].WO_ID._text +'</td>'  + '<td>' + result.wodisplay[i].SEND_TO._text   +'</td>' +'<td>'+ result.wodisplay[i].PRIORITY._text +'</td>'  +'<td>'+ result.wodisplay[i].DUE_DATE._text +'</td>'+'<td>'+ result.wodisplay[i].WO_NAME._text +'</td>'  +'<td>'+ result.wodisplay[i].INSTRUCTIONS._text +'</td>';
                        
                        $(".btn-sm").click(function () {
                               var $row = $(this).closest("tr"),
@@ -196,7 +195,7 @@ function myclose() {
 
 
 
-<body  class="animsition">
+<body onload=getprofile() class="animsition">
      <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -246,7 +245,7 @@ function myclose() {
       <li class="nav-item">
        
         <a class="nav-link" href="workorderdisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Work Order</span>
         </a>
         <div id="collapseTwo" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -262,14 +261,14 @@ function myclose() {
 
        <li class="nav-item">
         <a class="nav-link" href="workordercreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create Work Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="edit2.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit Work Order </span>
         </a>
        </li>
@@ -322,13 +321,13 @@ function myclose() {
               <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
                  <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li> 
-                <li class="breadcrumb-item active" aria-current="page">Display Incident</li>
+                <li class="breadcrumb-item active" aria-current="page">Display Work Order</li>
               </ol>
             </nav>
           </div>
 
 
-
+          
 
 
 

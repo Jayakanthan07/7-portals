@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Create Incident</title>
+  <title>Create Planned Order</title>
 
 
 
@@ -251,7 +251,7 @@ setTimeout(() => {
       
       <li class="nav-item">
         <a class="nav-link" href="planneddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Planned Order</span>
         </a>
        </li>
@@ -259,21 +259,21 @@ setTimeout(() => {
 
        <li class="nav-item">
         <a class="nav-link" href="plannedcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="plannededit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="proddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Production Order</span>
         </a>
        </li>
@@ -281,14 +281,14 @@ setTimeout(() => {
 
        <li class="nav-item">
         <a class="nav-link" href="prodcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create Production Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="prodedit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit Production Order</span>
         </a>
        </li>
@@ -341,9 +341,8 @@ setTimeout(() => {
   <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
       <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
-       <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li>
-       <li class="breadcrumb-item"><a href="incidentdisplay.html">Display Incident</a></li> 
-      <li class="breadcrumb-item active" aria-current="page">Create Incident</li>
+       <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li> 
+      <li class="breadcrumb-item active" aria-current="page">Create Planned Order</li>
     </ol>
   </nav>
 </div>
@@ -557,23 +556,23 @@ setTimeout(() => {
   <div class="card-body card-block mx-auto">
       <div class="form-group">
           <label for="company" class=" form-control-label"><strong>Order ID</strong></label>
-          <input  type="text"  required id="porder_id" placeholder="Eg: Voltas"class="form-control">
+          <input  type="text"  required id="porder_id" placeholder="Eg: 1003"class="form-control">
       </div>
       <div class="form-group">
         <label for="company" class=" form-control-label"><strong>Material ID</strong></label>
-        <input  type="text" required  id="material_id" placeholder=""class="form-control">
+        <input  type="text" required  id="material_id" placeholder="123456789"class="form-control">
     </div>
     <div class="form-group">
       <label for="company" class=" form-control-label"><strong>Material Name</strong></label>
-      <input  type="text" required  id="materialname" placeholder=""class="form-control">
+      <input  type="text" required  id="materialname" placeholder="Shoes"class="form-control">
   </div>
       <div class="form-group">
           <label for="vat" class=" form-control-label"><strong>Plant Name</strong></label>
-          <input type="text" required id="plant" placeholder="Eg: Krishna Kumar" class="form-control">
+          <input type="text" required id="plant" placeholder="Eg: India Shoes" class="form-control">
       </div>
       <div class="form-group">
           <label for="vat" class=" form-control-label"><strong>MRP</strong></label>
-          <input type="text" required id="mrp" placeholder="Eg: Mr.Patel" class="form-control">
+          <input type="text" required id="mrp" placeholder="Eg: 121" class="form-control">
       </div>
       <!-- <div class="form-group">
           <label for="vat" class=" form-control-label"><strong>Order Start Date</strong></label>
@@ -586,24 +585,24 @@ setTimeout(() => {
 
       <div class="form-group">
         <label for="street" class=" form-control-label"><strong>Plant Open</strong></label>
-        <input type="text" required id="plndopen" placeholder="Low/medium/high/urgent" class="form-control">
+        <input type="text" required id="plndopen" placeholder="03-10-2020" class="form-control">
     </div>
     <div class="form-group">
       <label for="street" class=" form-control-label"><strong>Quantity</strong></label>
-      <input type="text" required id="quantity" placeholder="" class="form-control">
+      <input type="text" required id="quantity" placeholder="6000" class="form-control">
   </div>
   <div class="row">
     <div class="col-6">
       <div class="form-group">
         <label for="street" class=" form-control-label">Order Start Date</label>
-        <input type="text" required id="orderstart" placeholder="Eg: 10/02/2020" class="form-control">
+        <input type="text" required id="orderstart" placeholder="Eg: 10-02-2020" class="form-control">
       </div>
     </div>
 
     <div class="col-6">
       <div class="form-group">
         <label for="street" class=" form-control-label">Order End Date</label>
-        <input type="text" required id="orderfinish" placeholder="Eg: 11/02/2020" class="form-control">
+        <input type="text" required id="orderfinish" placeholder="Eg: 11-02-2020" class="form-control">
       </div>
     </div>
                         

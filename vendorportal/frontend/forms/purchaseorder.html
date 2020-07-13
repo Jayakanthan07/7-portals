@@ -121,43 +121,43 @@
                   };
     
                   fetch("http://localhost:8000/purchaseorder1", requestOptions)
-                      .then(response => response.json())
-                      .then(result => {
-                          
+                    .then(response => response.json())
+                    .then(result => {
                         
-                          for( i in result.planneddisplay)
-                      {   
-                                ctr=i;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-                                document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'+'<td class="user">'+ result.planneddisplay[i].porder_id._text +'</td>'   + '<td class="kaarred">'+ result.planneddisplay[i].plndopen._text +'</td>'+ '<td class="usr">' + result.planneddisplay[i].material_id._text   +'</td>'+ '<td>' + result.planneddisplay[i].materialname._text   +'</td>' +'<td class="process">'+ result.planneddisplay[i].mrp._text +'</td>'+ '<td>'+ result.planneddisplay[i].quantity._text +'</td>'  +'<td>'+ result.planneddisplay[i].orderstart._text +'</td>'  +'<td>'+ result.planneddisplay[i].orderfinish._text +'</td>' +'<td class="process" > '+ result.planneddisplay[i].plant._text  +'</td >'    ;
-                           
-                           
-                          
-                         
-                           $(".btn-sm").click(function () {
-                                var $row = $(this).closest("tr"),
-                                    $tds = $row.find("td:nth-child(4)");
-                                  
-                             
-    
-                                 $.each($tds, function () {
-                                  
-                                  localStorage.setItem("customerid",$(this).text());
-                                  getresponse();
-                                   
-                                 });
-    
-    
-                                
-    
-                            });
-                           
-                      };
-    
                       
-                      })
-                      .catch(error => console.log('error', error));
-    
-          }
+                        for( i in result.purchasedisplay)
+                    {   
+                              ctr=i;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                              document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'+'<td class="user">'+ result.purchasedisplay[i].purchase_id._text +'</td>'   + '<td class="">'+ result.purchasedisplay[i].invoice_id._text +'</td>'+ '<td class="blu">' + result.purchasedisplay[i].customer_id._text   +'</td>'+ '<td>' + result.purchasedisplay[i].materialname._text   +'</td>' +'<td class="process">'+ result.purchasedisplay[i].unitprice._text +'</td>'+ '<td>'+ result.purchasedisplay[i].quantity._text +'</td>'   +'<td>'+ result.purchasedisplay[i].invoicedate._text +'</td>'  +'<td>'+ result.purchasedisplay[i].duedate._text +'</td>' +'<td class="process" > '+ result.purchasedisplay[i].totalprice._text  +'</td >'  ;
+                         
+                         
+                        
+                       
+                         $(".btn-sm").click(function () {
+                              var $row = $(this).closest("tr"),
+                                  $tds = $row.find("td:nth-child(4)");
+                                
+                           
+  
+                               $.each($tds, function () {
+                                
+                                localStorage.setItem("customerid",$(this).text());
+                                getresponse();
+                                 
+                               });
+  
+  
+                              
+  
+                          });
+                         
+                    };
+  
+                    
+                    })
+                    .catch(error => console.log('error', error));
+  
+        }
   
           function printDiv(divName) {
           var printContents = document.getElementById(divName).innerHTML;
@@ -341,7 +341,7 @@
               <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
                  <li class="breadcrumb-item"><a href="blank.html">Dashboard</a></li> 
-                <li class="breadcrumb-item active" aria-current="page">Goods Reciept</li>
+                <li class="breadcrumb-item active" aria-current="page">Purchase Order</li>
               </ol>
             </nav>
           </div>
@@ -493,7 +493,7 @@
                       </div>
                       <div class="content">
                           <h5 class="name">
-                              <p id="displayname"></p>
+                     Vendor ID :          <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
                       </div>

@@ -9,7 +9,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Profile</title>
+  <title>Edit Production Order</title>
+
+
+
+
 
   <!-- Custom fonts for this template-->
   <link href="../new/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,98 +48,89 @@
   
   <!--====== Style CSS ======-->
   <link rel="stylesheet" href="../assets/css/style.css">
- <script> 
-  function logout(){
-    localStorage.clear();
-    console.log("token is cleared");
-    setTimeout(() => {
-                    window.location.href = '/';
-    }, 2000);
-}
-</script>
+
+
+  <link rel="stylesheet" href="centerstyle.css">
+
   <script>
-    function getprofile() {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("token", localStorage.getItem('token'));
         
-        const raw = JSON.stringify({empID: localStorage.getItem('username') });
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+        
+    //Display profile
+    function getprofile()
+     {searchproductionorder();
+       engID= localStorage.getItem("username");
+       const displayname = document.getElementById('displayname');
+       displayname.textContent = engID ;
+       
+    }
 
-fetch("http://localhost:8000/empprofile", requestOptions)
-.then(response => response.json())
-.then(result => {
+    //Finding the required production order
+    function searchproductionorder()
+    {
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            console.log("searchproductionorder endpoint called");
+            const apiPayload = {
+                                engID : localStorage.getItem('username'),
+                                prodorder_id : localStorage.getItem('currentorder'),
+                            }
+            const raw = JSON.stringify(apiPayload);
+            console.log(raw);
+            
+            const requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-const displayname = document.getElementById('displayname');
-displayname.textContent=`${result.emp_name}`;
-const displayemail = document.getElementById('displayemail');
-displayemail.textContent=`${result.emp_email.toLowerCase()}`;
-console.log(result);
-const name = document.getElementById('Name');
-name.value=result.emp_name;
-const email = document.getElementById('Email');
-email.value=result.emp_email.toLowerCase();
-const phone = document.getElementById('Phone');
-phone.value=result.emp_phone;
-const city = document.getElementById('City');
-city.value=result.emp_city;
-const state = document.getElementById('State');
-state.value=result.emp_state.toLowerCase();
-const country = document.getElementById('Country');
-country.value=result.emp_country.toLowerCase();
-const pincode = document.getElementById('Pincode');
-pincode.value=result.emp_pincode;
-const address = document.getElementById('Address');
-address.value=result.emp_address.toLowerCase();
-const fax = document.getElementById('FAX');
-fax.value=result.emp_fax;
+            
 
-const company = document.getElementById('Company');
-company.value=result.emp_company;
-const department = document.getElementById('Department');
-department.value=result.emp_department;
-const jobrole = document.getElementById('Jobrole');
-jobrole.value=result.emp_jobrole;
-const reportsto = document.getElementById('Reportsto');
-reportsto.value=result.emp_reportsto;
-const hiredate = document.getElementById('Hiredate');
-hiredate.value=result.emp_hiredate;
+            fetch("http://localhost:8000/productiondisp2", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    
+                    const prodorder_id = document.getElementById('prodorder_id');
+                    prodorder_id.value=result.prodorder_id;
+                    const material_id = document.getElementById('material_id');
+                    material_id.value=result.material_id;
+                    const materialname = document.getElementById('materialname');
+                    materialname.value=result.materialname;
+                    const plant = document.getElementById('plant');
+                    plant.value=result.plant;
+                    const status = document.getElementById('status');
+                    status.value=result.status;
+                    const quantity = document.getElementById('quantity');
+                    quantity.value=result.quantity;
+                    
 
+                
+                })
+                .catch(error => {
+                    console.log('error', error);
+                
+                })
+                        
+        
+               
 
-  
-})
-.catch(error => console.log('error', error));
-}
+    };
 
-//Updating the fields
-function updateprofile() {
-console.log('Update profile function called')
+//Updating the fields of prodorder
+function prodedit() {
+
+console.log('Edit prodorder function called')
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("token", localStorage.getItem('token'));
         const apiPayload = {
-            empID: localStorage.getItem('username'),
-            Name: document.getElementById('Name').value,
-            Email: document.getElementById('Email').value,
-            Phone: document.getElementById('Phone').value,
-            City: document.getElementById('City').value,
-            State: document.getElementById('State').value,
-            Country: document.getElementById('Country').value,
-            Pincode: document.getElementById('Pincode').value,
-            Address: document.getElementById('Address').value,
-            Company: document.getElementById('Company').value,
-            FAX: document.getElementById('FAX').value,
-            Department: document.getElementById('Department').value,
-            Jobrole: document.getElementById('Jobrole').value,
-            Reportsto: document.getElementById('Reportsto').value,
-            Hiredate: document.getElementById('Hiredate').value,
-
-
+            engID : localStorage.getItem('username'),
+            prodorder_id : document.getElementById('prodorder_id').value,
+            material_id : document.getElementById('material_id').value,
+            materialname : document.getElementById('materialname').value,
+            plant : document.getElementById('plant').value,
+            status : document.getElementById('status').value,
+            quantity : document.getElementById('quantity').value,
         }
         const raw = JSON.stringify(apiPayload);
         const requestOptions = {
@@ -144,9 +139,8 @@ console.log('Update profile function called')
             body: raw,
             redirect: 'follow'
         };
-        console.log("he");
 
-fetch("http://localhost:8000/empupdateprofile", requestOptions)
+fetch("http://localhost:8000/prodedit", requestOptions)
     .then(response => response.json())
     .then(result => {
 console.log(result.Status);
@@ -155,9 +149,10 @@ console.log(result.Status);
     document.getElementById("successmsg").style.visibility = "visible";
     
     setTimeout(() => {
-        document.getElementById("successmsg").style.opacity = 0;
+        document.getElementById("successmsg").style.visibility = "hidden";
  }, 2000);
     
+
 changetoreadonly();
 }
   
@@ -171,46 +166,55 @@ else
 }
 
 var buttoncount=0;
-
 function changetowritable(){
 buttoncount++;
 console.log("button counter",buttoncount);
-var items = document.querySelectorAll('#Name,#Email,#Phone,#City,#State,#Country,#Pincode,#Address,#FAX,#Company,#Department,#Jobrole,#Reportsto,#Hiredate');
+var items = document.querySelectorAll('#material_id,#materialname,#plant,#status,#quantity');
 for (var i = 0; i < items.length; i++)
 {
 items[i].readOnly = false;
 };
-document.getElementById('edit1').innerHTML = "UPDATE Changes";
-document.getElementById("icon1").className = "fa fa-lock fa-check-square-o";
+document.getElementById('edit1').innerHTML = "Update Current Order";
+//   document.getElementById("icon1").className = "fa fa-lock fa-check-square-o";
 buttoncounter();
 
 }
 
 function changetoreadonly(){
-var items = document.querySelectorAll('#Name,#Email,#Phone,#City,#State,#Country,#Pincode,#Address,#FAX,#Company,#Department,#Jobrole,#Reportsto,#Hiredate');
+var items = document.querySelectorAll('#material_id,#materialname,#plant,#status,#quantity');
 for (var i = 0; i < items.length; i++)
 {
 items[i].readOnly = true;
 };
-document.getElementById('edit1').innerHTML = "EDIT PROFILE";
+document.getElementById('edit1').innerHTML = "Edit Exisiting Order";
 document.getElementById("icon1").className = "fa fa-lock fa-edit";
 
 
 }
 
 
-
 function buttoncounter(){
 if(buttoncount%2==0)
 {   
 console.log("buttoncount is even");
-updateprofile();
+prodedit();
 
 }
+}
+
+function logout(){
+localStorage.clear();
+console.log("token is cleared");
+setTimeout(() => {
+                window.location.href = '/';
+}, 500);
 }
 
 
 </script>
+
+
+  
   <!-- Title Page-->
   <title>Profile</title>
 
@@ -242,7 +246,7 @@ updateprofile();
 
 </head>
 
-<body onload="getprofile()"  class="animsition">
+<body onload="getprofile()"  class="animsition" id="page-top">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -259,7 +263,7 @@ updateprofile();
       </a>
 
       <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+      <hr class="sidebar-divider d-none d-md-block"> 
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
@@ -270,43 +274,52 @@ updateprofile();
 
       <!-- Divider -->
       
-
-      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="profile1.html">
-          <i class="fa fa-user"></i>
-          <span>Profile</span>
-        </a>
-       </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="leave1.html">
-          <i class="fa fa-files-o"></i>
-          <span>Leave Request</span>
-        </a>
-        
-      </li>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="leavedisp.html">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Leave Display</span>
+        <a class="nav-link" href="planneddisplay.html">
+          <i class="fas fa-fw fa-television"></i>
+          <span>Display Planned Order</span>
         </a>
        </li>
 
 
        <li class="nav-item">
-        <a class="nav-link" href="payslip.html">
-          <i class="fa fa-question-circle"></i>
-          <span>PaySlip</span>
+        <a class="nav-link" href="plannedcreate.html">
+          <i class="fa fa-clipboard"></i>
+          <span>Create planned Order</span>
+        </a>
+       </li>
+
+       <li class="nav-item">
+        <a class="nav-link" href="plannededit.html">
+          <i class="fa fa-edit"></i>
+          <span>Edit planned Order</span>
+        </a>
+       </li>
+
+       <li class="nav-item">
+        <a class="nav-link" href="proddisplay.html">
+          <i class="fas fa-fw fa-television"></i>
+          <span>Display Production Order</span>
         </a>
        </li>
 
 
+       <li class="nav-item">
+        <a class="nav-link" href="prodcreate.html">
+          <i class="fa fa-clipboard"></i>
+          <span>Create Production Order</span>
+        </a>
+       </li>
 
+       <li class="nav-item">
+        <a class="nav-link" href="prodedit.html">
+          <i class="fa fa-edit"></i>
+          <span>Edit Production Order</span>
+        </a>
+       </li>
 
+      <!-- Nav Item - Pages Collapse Menu -->
+      
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -333,28 +346,33 @@ updateprofile();
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-              <a href="404.html" <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </a>
-              </div>
-            </div>
-          </form>
-<!-- EDIT PROFILE-->
-
-          <button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="changetowritable()">
-           <!-- <i class="fa fa-dot-circle-o"></i> EDIT PROFILE -->
+          <div class="input-group" style = "margin-top: 15px;">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
+                 <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Edit Specific Order</li>
+              </ol>
+            </nav>
+          </div>
+          
+            <!-- <strong>Search The Order ID To Edit :</strong>&nbsp;&nbsp;&nbsp;
+            <div class="input-group-append">
+            <input class="au-input au-input--xl" type="text" id="porder_id2" placeholder="Eg:77704072020" />
+            <button class="btn btn-primary btn-large" onclick="plannedsearch()" type="submit" style = "margin-left: 5px;">Search
+              <i class="fas fa-search fa-sm"></i>
+            </button>
+          </div>
+          </form> -->
+<!-- EDIT PROFILE
+          <a href="leavedisp.html"><button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="">
             <i id="icon1" class="fa fa-lock fa-edit"></i>&nbsp;
-            <span id="edit1">EDIT PROFILE</span>
+            <span id="edit1">Display Leave Details</span>
              
         </button>
-       
+       </a>
 
-
+-->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -370,13 +388,14 @@ updateprofile();
               <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
                   <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Enter The Incident ID..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                       <button class="btn btn-primary" type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
                   </div>
+                 
                 </form>
               </div>
             </li>
@@ -490,6 +509,11 @@ updateprofile();
 
 
 
+
+
+
+
+
         <div class="user-area float-right">
           <div class="account-item clearfix js-item-menu">
               <div class="image">
@@ -504,6 +528,7 @@ updateprofile();
                       </div>
                       <div class="content">
                           <h5 class="name">
+                            <h4>Engineer ID : </h4>
                               <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
@@ -532,188 +557,208 @@ updateprofile();
         <!-- End of Topbar -->
 
 
-
-
         
-            <div class="section__content section__content--p30">
-                <div class="container-fluid">
-                    <div class="row">
-
-                        <div class="col-lg-6" >
-                            <div class="card bg-dark text-white">
-                                <div class="card-header">
-                                    <strong>Employee</strong>
-                                    <small> Details</small>
-                                </div>
-                                <div class="card-body card-block">
-                                    <div class="form-group">
-                                        <label for="company" class=" form-control-label">Name</label>
-                                        <input readonly type="text" id="Name" placeholder=""class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="vat" class=" form-control-label">Email</label>
-                                        <input type="text" readonly id="Email" placeholder="" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="street" class=" form-control-label">Phone</label>
-                                        <input type="text" readonly id="Phone" placeholder="" class="form-control">
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-8">
-                                            <div class="form-group">
-                                                <label for="city" class=" form-control-label">City</label>
-                                                <input type="text" readonly id="City" placeholder="" class="form-control">
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="col-8">
-                                            <div class="form-group">
-                                                <label for="postal-code" class=" form-control-label">State</label>
-                                                <input type="text" readonly id="State" placeholder=""
-                                                    class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-8">
-                                            <div class="form-group">
-                                                <label for="postal-code"  class=" form-control-label">Pincode</label>
-                                                <input type="text" readonly id="Pincode" placeholder=""
-                                                    class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-8">
-                                          <div class="form-group">
-                                              <label for="postal-code"  class=" form-control-label">FAX</label>
-                                              <input type="text" readonly id="FAX" placeholder=""
-                                                  class="form-control">
-                                          </div>
-                                      </div>
-
-
-
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="textarea-input" class=" form-control-label">Address</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <textarea name="textarea-input" readonly id="Address" rows="4"  class="form-control"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="country" class=" form-control-label">Country</label>
-                                        <input type="text" readonly id="Country" placeholder="" class="form-control">
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card bg-dark text-white">
-                                <div class="card-header">        <strong>Company</strong>
-                                    <small> Details</small></div>
-                                <div class="card-body">
-                                    <div class="card-title">
-                                        <h3 class="text-center title-2"></h3>
-                                    </div>
-                                    
-                                    <form action="" method="post" novalidate="novalidate">
-                      
-                                      <div class="form-group">
-                                            <label for="cc-payment" class="control-label mb-1">Company</label>
-                                            <input id="Company" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
-                                        </div>
-                                        
-
-                                        <div class="form-group">
-                                          <label for="cc-payment" class="control-label mb-1">Department</label>
-                                          <input id="Department" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
-                                      </div>
-                                      
-                                      <div class="form-group">
-                                        <label for="cc-payment" class="control-label mb-1">Jobrole</label>
-                                        <input id="Jobrole" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                      <label for="cc-payment" class="control-label mb-1">Reports To</label>
-                                      <input id="Reportsto" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="cc-payment" class="control-label mb-1">Hire Date</label>
-                                    <input id="Hiredate" name="cc-payment" type="text" class="form-control" readonly aria-required="true" aria-invalid="false" >
-                                </div>
-                            
-                                
-
-                                    </form>
-                                    
-                                </div>
-                                
-                            </div>
-
-
-
-                            
-                            <br>
-                            <div id="successmsg" style="visibility: hidden;" class="alert alert-success" role="alert">                         
-                                Profile Updated Successful
-                            </div>
-                            <div id="failuremsg" style="visibility: hidden;" class="alert alert-danger" role="alert">                         
-                                Update Unsuccessful
-                            </div>
-                        </div>
-                     </div>
-
-                     
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <strong><p>© Made with love and Teamwork!.</p></strong>
-                                <p>jk</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          
+<!--                      
+        <div class="" id="harsh">
+          <div class="flex-container">
+          <div class="card bg-dark text-white">
+            <div class="card-header">
+              <strong>Employee</strong>
+              <small> Details</small>
             </div>
+        
+            <div class="card-body card-block">
+              <form class="forms-sample">
+                <div class="form-group">
+                  <label for="company" class=" form-control-label">Employee Name</label>
+                  <input type="text" required id="EmployeeName" placeholder="Eg: Santhosh Narayanan" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="vat" class=" form-control-label">Department</label>
+                  <input type="text" required id="Department" placeholder="Eg: Human resources" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="company" class=" form-control-label">Leave ID</label>
+                  <input type="number" required id="Leaveid" placeholder="(Eg:your Emp ID + Date without separators)"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="vat" class=" form-control-label">Leave Type</label>
+                  <input type="text" required id="Leavetype" placeholder="(Eg: Personal/Medical/Onduty)" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="street" class=" form-control-label">Email To</label>
+                  <input type="text" required id="Emailto" placeholder="yourhr@gmail.com" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="Reason" class=" form-control-label">Reason</label>
+                </div>
+                <div class="row">
+                  <div class="col-6 col-md-12">
+                    <textarea name="textarea-input" required id="Reason" rows="3" maxlength="50"
+                      class="form-control"></textarea>
+                  </div>
+                </div>
+                &nbsp;
+        
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="street" class=" form-control-label">From Date</label>
+                      <input type="date" required id="Fromdate" placeholder="Eg: 10/02/2020" class="form-control">
+                    </div>
+                  </div>
+        
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="street" class=" form-control-label">To Date</label>
+                      <input type="date" required id="Todate" placeholder="Eg: 11/02/2020" class="form-control">
+                    </div>
+                  </div>
+        
+        
+        
+        
+                  
+                  </div>
+              </form>
+              &nbsp;
+              <div class="">
+      
+                <button class="btn btn-primary btn-sm" onclick="createleaverequest()" type="submit">Submit Leave Request
+                  <i class="fa fa-check-square-o"></i>
+                </button>
+    
+            </div>
+           
+          </div>
+          </div>
         </div>
-    </div>
+      
 
+
+
+
+        <p id="successmsg" style="visibility: hidden;" class="alert alert-success" role="alert">                         
+          Leave Request successfully sent
+      </p>
+      <p id="failuremsg" style="visibility: hidden;" class="alert alert-danger" role="alert">                         
+          Leave Request failed to send
+      </p>                                              
+     
+
+       -->
+
+<!-- sp -->
+
+
+<!-- <div class="card">
+  <div class="card-header  bg-dark text-white">
+    <small>Enter Your</small>
+    <strong> Incident ID</strong>
 </div>
 
+  <div class="card-body card-block ">
+    <div class="form-group">
+          
+            <input type="text" required id="incidentid2" placeholder="Eg.77702032020" class="form-control">
+        </div>
+    </div>
+    <div class = "card footer">
+    <button class="btn btn-info btn-sm" onclick="searchincident()" type="submit">Find the Incident
+        <i class="zmdi zmdi-search"></i>
+    </button>
+</div> -->
+<!-- </div> -->
 
 
-
-
-
+<!-- sp -->
+<div class="flex-container">
+  <div class="card">
+    <div class="card-header bg-dark text-white">
+        <strong>Planned</strong>
+        <small> Order</small>
+    </div>
+    <div class="card-body card-block mx-auto">
+        <div class="form-group">
+            <label for="company" class=" form-control-label"><strong>Order ID</strong></label>
+            <input  type="text" readonly required id="prodorder_id" placeholder=""class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="company" class=" form-control-label"><strong>Material ID</strong></label>
+          <input  type="text" required readonly id="material_id" placeholder=""class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="company" class=" form-control-label"><strong>Material Name</strong></label>
+        <input  type="text" required readonly id="materialname" placeholder=""class="form-control">
+    </div>
+        <div class="form-group">
+            <label for="vat" class=" form-control-label"><strong>Plant Name</strong></label>
+            <input type="text" required readonly id="plant" placeholder="" class="form-control">
+        </div>
+        <!--<div class="form-group">
+            <label for="vat" class=" form-control-label"><strong>Quantity</strong></label>
+            <input type="text" required id="quantity" readonly placeholder="Eg: Mr.Patel" class="form-control">
+        </div>
+         <div class="form-group">
+            <label for="vat" class=" form-control-label"><strong>Order Start Date</strong></label>
+            <input type="text" required id="orderstart" placeholder="Eg: Voltas Service Team" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="street" class=" form-control-label"><strong>Order End Date</strong></label>
+          <input type="text" required id="orderfinish" placeholder="Low/medium/high/urgent" class="form-control">
+      </div> 
+  
+        <div class="form-group">
+          <label for="street" class=" form-control-label"><strong>Status</strong></label>
+          <input type="text" required id="status" readonly placeholder="Low/medium/high/urgent" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="street" class=" form-control-label"><strong>Quantity</strong></label>
+        <input type="text" required id="quantity" readonly placeholder="" class="form-control">
+    </div>-->
+    <div class="row"> 
+      <div class="col-6">
+        <div class="form-group">
+          <label for="street" class=" form-control-label">Quantity</label>
+          <input type="text" required id="quantity" readonly placeholder="" class="form-control">
+        </div>
+      </div>
+      <div class="col-6">
+      <div class="form-group">
+        <label for="street" class=" form-control-label">Status</label>
+        <input type="text" required id="status" readonly placeholder="" class="form-control">
+      </div>
+    </div>
+                   
+    </div>
+  &nbsp;
+    <div class="card">
+            
+      <button class="btn btn-primary btn-sm" onclick="changetowritable()" id ="edit1" type="submit">Edit Order
+          <i class="fa fa-check-square-o"></i>
+      </button>
+  
+  </div>
+  
+  </div>
+  
+  <div id="successmsg" style="visibility: hidden;" class="alert alert-success" role="alert">
+    Order Edited successfully!!!
+    </div>
+    <div id="failuremsg" style="visibility: hidden;" class="alert alert-danger" role="alert">
+     Order Edit Unsuccessful
+    </div>
+  
+  </div>
+  </div> 
+    
 
 
 
 
               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -784,6 +829,17 @@ updateprofile();
         
 
 
+<!-- 
+<footer>
+  <div class="row te">
+      <div class="col-md-12">
+          <div class="copyright">
+            <strong>  <p>© Made with love and Teamwork!.</p></strong>
+              <p>jk</p>
+          </div>
+      
+  </div>
+</footer>  -->
 
 
 
@@ -798,21 +854,18 @@ updateprofile();
 
 
 
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
 
 
 
 
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
 
-  
 
-<!--logout modal-->
-  
-
+        
 
 
 
@@ -828,6 +881,10 @@ updateprofile();
 
   <!-- Custom scripts for all pages-->
   <script src="../new/js/sb-admin-2.min.js"></script>
+
+
+
+
 
 </body>
 

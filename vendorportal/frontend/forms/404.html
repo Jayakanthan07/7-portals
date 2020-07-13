@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Template</title>
+  <title>404</title>
 
   <!--Blank-->
   <!-- Custom fonts for this template-->
@@ -66,28 +66,32 @@
 
   <script>
     function getprofile() {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("token", localStorage.getItem('token'));
-        const raw = JSON.stringify({ custID: localStorage.getItem('username') });
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+      venID = localStorage.getItem("username");
+              const displayname = document.getElementById('displayname');
+              displayname.textContent = venID;
+    }
+//         const myHeaders = new Headers();
+//         myHeaders.append("Content-Type", "application/json");
+//         myHeaders.append("token", localStorage.getItem('token'));
+//         const raw = JSON.stringify({ custID: localStorage.getItem('username') });
+//         const requestOptions = {
+//             method: 'POST',
+//             headers: myHeaders,
+//             body: raw,
+//             redirect: 'follow'
+//         };
 
-fetch("http://localhost:8000/profile", requestOptions)
-.then(response => response.json())
-.then(result => {
+// fetch("http://localhost:8000/vendorprofile", requestOptions)
+// .then(response => response.json())
+// .then(result => {
 
-const displayname = document.getElementById('displayname');
-displayname.textContent=`${result.cust_name}`;
-const displayemail = document.getElementById('displayemail');
-displayemail.textContent=`${result.cust_email.toLowerCase()}`;
-})
-.catch(error => console.log('error', error));
-}
+// const displayname = document.getElementById('displayname');
+// displayname.textContent=`${result.cust_name}`;
+// const displayemail = document.getElementById('displayemail');
+// displayemail.textContent=`${result.cust_email.toLowerCase()}`;
+// })
+// .catch(error => console.log('error', error));
+// }
 </script>
 
 
@@ -407,18 +411,18 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
         <div class="user-area float-right">
           <div class="account-item clearfix js-item-menu">
               <div class="image">
-                  <img src="images/icon/avatar-01.png" alt="John Doe" />
+                  <img src="images/icon/prod1.png" alt="John Doe" />
               </div>
               <div class="account-dropdown js-dropdown">
                   <div class="info clearfix">
                       <div class="image">
                           <a href="#">
-                              <img src="images/icon/avatar-01.png" alt="John Doe" />
+                              <img src="images/icon/prod1.png" alt="John Doe" />
                           </a>
                       </div>
                       <div class="content">
                           <h5 class="name">
-                              <p id="displayname"></p>
+                  Vendor ID :         <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
                       </div>

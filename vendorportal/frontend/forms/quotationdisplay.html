@@ -165,40 +165,39 @@
               };
 
               fetch("http://localhost:8000/quotation", requestOptions)
-                  .then(response => response.json())
-                  .then(result => {
-                      
-                   
-                      for( i in result.quotationresponse)
-                  {   
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-                      document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' +'<td class="user">'+ result.quotationresponse[i].INQUIRY_NO._text +'</td>' +'<td class="blu">'+ result.quotationresponse[i].PRODUCT_INQUIRY._text +'</td>' + '<td class = "process">' + result.quotationresponse[i].CUST_PHONENO._text   +'</td>'  +'<td>'+ result.quotationresponse[i].QTY._text +'</td>'  ;
-
+                    .then(response => response.json())
+                    .then(result => {
+                        
                      
-                       $(".btn-sm").click(function () {
-                            var $row = $(this).closest("tr"),
-                                $tds = $row.find("td:nth-child(3)");
-                              
-                         
+                        for( i in result.quotationresponse)
+                    {   
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                        document.getElementById("spl").innerHTML +='<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>' +'<td class="user">'+ result.quotationresponse[i].quotation_id._text +'</td>' +'<td class="blu">'+ result.quotationresponse[i].customer_id._text +'</td>'  +'<td>'+ result.quotationresponse[i].materialname._text +'</td>' + '<td class="process">' + result.quotationresponse[i].unitprice._text   +'</td>'  +'<td>'+ result.quotationresponse[i].quantity._text +'</td>'+'<td>'+ result.quotationresponse[i].quotationname._text +'</td>' +'<td class="process">'+ result.quotationresponse[i].totalprice._text +'</td>'  ;
 
-                             $.each($tds, function () {
-                              
-                              localStorage.setItem("customerid",$(this).text());
-                              getresponse();
-                               
-                             });
-
-
-                            
-
-                        });
                        
-                  };
-
-                  
-                  })
-                  .catch(error => console.log('error', error));
-
+                         $(".btn-sm").click(function () {
+                              var $row = $(this).closest("tr"),
+                                  $tds = $row.find("td:nth-child(3)");
+                                
+                           
+  
+                               $.each($tds, function () {
+                                
+                                localStorage.setItem("customerid",$(this).text());
+                                getresponse();
+                                 
+                               });
+  
+  
+                              
+  
+                          });
+                         
+                    };
+  
+                    
+                    })
+                    .catch(error => console.log('error', error));
       }
 
       // function carrytonextpage(current) {
@@ -541,7 +540,7 @@
                       </div>
                       <div class="content">
                           <h5 class="name">
-                            <h4>Engineer ID : </h4>
+                            <h4>Vendor ID :  </h4>
                               <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
@@ -581,8 +580,11 @@
                                                   <th>Action</th>
                                                   <th>Quotation ID</th>
                                                   <th>Customer ID</th>
+                                                  <th>Material Name</th>
                                                   <th>Price</th>
-                                                  <th>Quantity</th>                                                                          
+                                                  <th>Quantity</th>
+                                                  <th>Date</th>
+                                                  <th>Total Price</th>                                                                          
                                                 </tr>
                                             </thead>
                                             <tbody id="spl">
@@ -611,7 +613,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Vendor Details</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Customer Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

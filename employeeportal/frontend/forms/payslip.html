@@ -157,6 +157,11 @@
   function getmonthyear() {
       var year = document.getElementById("selectyear").value;
       var month = document.getElementById("selectmonth").value;
+      if(year == " "|| month ==" ")
+      {
+        alert("Enter The Year And Month!!!");
+      }
+    
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("token", localStorage.getItem('token'));
@@ -176,8 +181,7 @@
           body: raw,
           redirect: 'follow'
       };
-
-      fetch("http://localhost:8000/payslipfilter", requestOptions)
+          fetch("http://localhost:8000/payslipfilter", requestOptions)
           .then(response => response.json())
           .then(result => {
 
@@ -195,13 +199,21 @@
       var year = document.getElementById("selectyear").value;
      // filterbtncounter++;
       //console.log("the button count is: ", filterbtncounter);
-
+      
+     
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("token", localStorage.getItem('token'));
       console.log("getsalary endpoint called");
-
-      const payload = {
+    // if(year="Year")
+    // {
+    //   alert("Enter The Correct Year!!!");
+    // }
+    if(year == " ")
+      {
+        alert("Enter The Correct Year!!!");
+      }
+          const payload = {
           empID: localStorage.getItem('username'),
           year
       }
@@ -214,7 +226,7 @@
           body: raw,
           redirect: 'follow'
       };
-
+      
        fetch("http://localhost:8000/emppayslip", requestOptions)
           .then(response => response.json())
           .then(result => {
@@ -224,7 +236,7 @@
 
               for (i in result.salaryresponse) {
 
-                  document.getElementById("pay").innerHTML += '</td>' + '<td class="user">' + result.salaryresponse[i].ACCOUNT_NUMBER._text + '</td>' + '<td >' + result.salaryresponse[i].MODE_OF_PARTY._text + '</td>' + '<td class="process">' + result.salaryresponse[i].BASIC._text  + '</td>' + '<td class="process">' + result.salaryresponse[i].DA._text  + '</td>' + '<td class="process">' + result.salaryresponse[i].HRA._text  + '</td>' + '<td class="user">' + result.salaryresponse[i].NET_PAY._text + '&#8377;' + '</td>' + '<td>' + result.salaryresponse[i].MONTH._text + '</td>' + '<td>' + result.salaryresponse[i].YEAR._text + '</td>';
+                  document.getElementById("pay").innerHTML += '</td>' + '<td class="user">' + result.salaryresponse[i].ACCOUNT_NUMBER._text + '</td>' + '<td >' + result.salaryresponse[i].MODE_OF_PARTY._text + '</td>' + '<td class="process">' + result.salaryresponse[i].BASIC._text  + '</td>' + '<td class="process">' + result.salaryresponse[i].DA._text  + '</td>' + '<td class="process">' + result.salaryresponse[i].HRA._text  + '</td>' + '<td class ="process">' + result.salaryresponse[i].NET_PAY._text  + '</td>' + '<td>' + result.salaryresponse[i].MONTH._text + '</td>' + '<td>' + result.salaryresponse[i].YEAR._text + '</td>';
               };
 
           })
@@ -401,7 +413,7 @@
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="leave1.html">
+        <a class="nav-link collapsed" href="leavereq.html">
           <i class="fa fa-files-o"></i>
           <span>Leave Request</span>
         </a>
@@ -411,7 +423,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="leavedisp.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-bars"></i>
           <span>Leave Display</span>
         </a>
        </li>
@@ -419,7 +431,7 @@
 
        <li class="nav-item">
         <a class="nav-link" href="payslip.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-money"></i>
           <span>PaySlip</span>
         </a>
        </li>
@@ -668,115 +680,7 @@
         <!-- End of Topbar -->
 
 
-<!-- 
-         <div>
 
-
-          <div class="rs-select--dark rs-select--md m-r-10 rs-select--border">
-            <select class="js-select" id="selectmonth" name="Monthselector">
-                <option selected="selected">Month</option>
-                <option value="JANUARY">January</option>
-                <option value="FEBRUARY">February</option>
-                <option value="MARCH">March</option>
-                <option value="APRIL">April</option>
-                <option value="MAY">May</option>
-                <option value="JUNE">June</option>
-                <option value="JULY">July</option>
-                <option value="AUGUST">August</option>
-                <option value="SEPTEMBER">September</option>
-                <option value="OCTOBER">October</option>
-                <option value="NOVEMBER">November</option>
-                <option value="DECEMBER">December</option>
-            </select>
-            <div class="dropDownSelect2"></div>
-        </div>
-
-        <div class="rs-select--dark rs-select--md m-r-11 rs-select2--border">
-            <select class="js-select" id="selectyear" name="yearselector">
-                <option selected="selected">Year</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-            </select>
-            <div class="dropDownSelect2"></div>
-        </div>
-
-        <button style ="background-color: #4CAF50; color: white;"class="au-btn-filter" onclick="getcurrentyear()">
-            <i class="zmdi zmdi-filter-list"></i>Filter By Year
-        </button>
-&nbsp;&nbsp;&nbsp;
-        <button style ="background-color: #343db4; color: white;"class="au-btn-filter" onclick="getmonthyear()">
-            <i class="zmdi zmdi-filter-list"></i>Filter By Month
-        </button>
-      -->
-        
-      
-<!--         
-                    <div class="card" >
-                        <div class="card-header">
-                            <strong>Select </strong>Year/Month
-                        </div>
-                        <div class="card-body card-block">
-                          <div  class="container">
-                            <div class="row">
-                              <div class="">
-                              
-                                <div class="rs-select--dark rs-select--md m-r-10 rs-select--border">
-                                  <select style="margin-left: 20px;" class="js-select" id="selectmonth" name="Monthselector">
-                                      <option selected="selected">Month</option>
-                                      <option value="JANUARY">January</option>
-                                      <option value="FEBRUARY">February</option>
-                                      <option value="MARCH">March</option>
-                                      <option value="APRIL">April</option>
-                                      <option value="MAY">May</option>
-                                      <option value="JUNE">June</option>
-                                      <option value="JULY">July</option>
-                                      <option value="AUGUST">August</option>
-                                      <option value="SEPTEMBER">September</option>
-                                      <option value="OCTOBER">October</option>
-                                      <option value="NOVEMBER">November</option>
-                                      <option value="DECEMBER">December</option>
-                                  </select>
-                                  <div class="dropDownSelect2"></div>
-                              </div>
-                      
-                              </div>
-                              <div class="">
-                                <div class="rs-select--dark rs-select--md m-r-11 rs-select2--border">
-                                  <select style="margin-left: 80px;" class="js-select" id="selectyear" name="yearselector">
-                                      <option selected="selected">Year</option>
-                                      <option value="2020">2020</option>
-                                      <option value="2019">2019</option>
-                                      <option value="2018">2018</option>
-                                      <option value="2017">2017</option>
-                                      <option value="2016">2016</option>
-                                      <option value="2015">2015</option>
-                                  </select>
-                                  <div class="dropDownSelect2"></div>
-                              </div>
-                             
-                              </div>
-                              </div>
-                            </div>
-                        </div>
-                  
-                        
-
-                        
-                        <div class="card-footer">
-                          <button style ="   background-color: #4CAF50; color: white; "class="au-btn-filter" onclick="getcurrentyear()">
-                            <i class="zmdi zmdi-filter-list"></i>Filter By Year
-                        </button>
-                        &nbsp;&nbsp;&nbsp;
-                  <button style ="background-color: #343db4; color: white;"class="au-btn-filter" onclick="getmonthyear()">
-                      <i class="zmdi zmdi-filter-list"></i>Filter By Month
-                  </button>
-                        </div>
-                    </div> -->
-                    
                       <div class="section__content section__content--p30">
                           <div class="container-fluid">
                               <div class="row">
@@ -792,7 +696,7 @@
                             
                               <div class="rs-select--dark rs-select--md m-r-10 rs-select--border">
                                 <select style="margin-left: 5px;" class="js-select" id="selectmonth" name="Monthselector">
-                                    <option selected="selected">Month</option>
+                                    <option selected="selected" value="Month">Month</option>
                                     <option value="JANUARY">January</option>
                                     <option value="FEBRUARY">February</option>
                                     <option value="MARCH">March</option>
@@ -813,7 +717,7 @@
                             <div class="col-mx-auto">
                               <div class="rs-select--dark rs-select--md m-r-11 rs-select2--border">
                                 <select style="margin-left: 80px;" class="js-select" id="selectyear" name="yearselector">
-                                    <option selected="selected">Year</option>
+                                    <option selected="selected" value="Year">Year</option>
                                     <option value="2020">2020</option>
                                     <option value="2019">2019</option>
                                     <option value="2018">2018</option>

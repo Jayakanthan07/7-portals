@@ -177,16 +177,16 @@ function getresponse(i) {
                       for( i in result.incidentdisplay)
                   {                                                                                                                               //data-toggle = "modal" data-target="#exampleModalLong"
                                  ctr=i;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-                       document.getElementById("inc").innerHTML += '<td>'+'<a href="description.html"><button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick=""><i class="fa fa-dot-circle-o"></i> View</button></a>' + '</td>'  + '<td class="user">'+ ctr +'</td>'   + '<td class="user">'+ result.incidentdisplay[i].incident_id._text +'</td>'   +'<td '+ (result.incidentdisplay[i].status._text === 'Completed' ? ' class="process"' : 'class="denied"') + '>'+ result.incidentdisplay[i].status._text   +'</td>' +'<td>'+ result.incidentdisplay[i].priority._text +'</td>'  +'<td>'+ result.incidentdisplay[i].createdon._text +'</td>'  +'<td>'+ result.incidentdisplay[i].firstresponse._text +'</td>'  +'<td>'+ result.incidentdisplay[i].endedon._text +'</td>' ;
+                       document.getElementById("inc").innerHTML += '<td>'+'<a href="incidentedit.html"><button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick=""><i id="icon1" class="fa fa-lock fa-edit"></i> Edit </button>' + '</td>'  + '<td class="user">'+ ctr +'</td>'   + '<td class="user">'+ result.incidentdisplay[i].incident_id._text +'</td>'   +'<td '+ (result.incidentdisplay[i].status._text === 'Completed' ? ' class="process"' : 'class="denied"') + '>'+ result.incidentdisplay[i].status._text   +'</td>' +'<td>'+ result.incidentdisplay[i].priority._text +'</td>'  +'<td>'+ result.incidentdisplay[i].createdon._text +'</td>'  +'<td>'+ result.incidentdisplay[i].firstresponse._text +'</td>'  +'<td>'+ result.incidentdisplay[i].endedon._text +'</td>' ;
                        
                        
-                       console.log("Row number is ",ctr);
+                      
                        $(".btn-sm").click(function () {
                              var $row = $(this).closest("tr"),
-                                 $tds = $row.find("td:nth-child(2)");
+                                 $tds = $row.find("td:nth-child(3)");
                               $.each($tds, function () {                                                                     
-                                  console.log("Row number inside function call is ",ctr);
-                                 getresponse(ctr);
+                                localStorage.setItem("currentorder",$(this).text());
+                                carrytonextpage();
                                
                               });
                          });
@@ -201,6 +201,13 @@ function getresponse(i) {
                   .catch(error => console.log('error', error));
 
       }
+
+        function carrytonextpage() {
+          window.location.href = 'editspecific.html';
+
+        }
+
+
 
   function logout(){
   localStorage.clear();
@@ -281,17 +288,18 @@ function getresponse(i) {
       <!-- Nav Item - Utilities Collapse Menu -->
       
       <!-- Nav Item - Pages Collapse Menu -->
+     
       <li class="nav-item">
         <a class="nav-link" href="incidentdisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Display Incident</span>
+          <i class="fas fa-fw fa-television"></i>
+          <span>Display incident</span>
         </a>
        </li>
 
 
        <li class="nav-item">
         <a class="nav-link" href="incidentcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create Incident</span>
         </a>
        </li>
@@ -299,10 +307,11 @@ function getresponse(i) {
        
        <li class="nav-item">
         <a class="nav-link" href="incidentedit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit Incident</span>
         </a>
        </li>
+
 
 
 
@@ -343,7 +352,7 @@ function getresponse(i) {
             </div>
           </form> -->
 
-
+        
           
           <div class="input-group" style = "margin-top: 15px;">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
@@ -356,7 +365,15 @@ function getresponse(i) {
           </div>
 
 
-
+          <div style="margin-right:200px;">
+            <a href="description.html"><button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="">
+              <i id="icon1" class="fa fa-lock fa-dot-circle-o"></i>&nbsp;
+              <span id="edit1">View all Details</span>
+               
+          </button>
+         </a>
+        </div>
+  
 
 
 

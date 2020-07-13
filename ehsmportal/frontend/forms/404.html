@@ -65,29 +65,16 @@
 
 
   <script>
-    function getprofile() {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("token", localStorage.getItem('token'));
-        const raw = JSON.stringify({ custID: localStorage.getItem('username') });
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+  
+        function getprofile()
+     {
+       engID= localStorage.getItem("username");
+       const displayname = document.getElementById('displayname');
+       displayname.textContent = engID ;
+    }
 
-fetch("http://localhost:8000/profile", requestOptions)
-.then(response => response.json())
-.then(result => {
+</script>
 
-const displayname = document.getElementById('displayname');
-displayname.textContent=`${result.cust_name}`;
-const displayemail = document.getElementById('displayemail');
-displayemail.textContent=`${result.cust_email.toLowerCase()}`;
-})
-.catch(error => console.log('error', error));
-}
 </script>
 
 
@@ -150,52 +137,30 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
       
 
       <!-- Nav Item - Pages Collapse Menu -->
+     
       <li class="nav-item">
-        <a class="nav-link collapsed" href="profile1.html">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Profile</span>
-        </a>
-       </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="invoice.html">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Invoice</span>
-        </a>
-        
-      </li>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="credit1.html">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Credit Memo</span>
+        <a class="nav-link" href="incidentdisplay.html">
+          <i class="fas fa-fw fa-television"></i>
+          <span>Display incident</span>
         </a>
        </li>
 
 
        <li class="nav-item">
-        <a class="nav-link" href="inquiry.html">
-          <i class="fa fa-question-circle"></i>
-          <span>Inquiry</span>
+        <a class="nav-link" href="incidentcreate.html">
+          <i class="fa fa-clipboard"></i>
+          <span>Create Incident</span>
         </a>
        </li>
 
-
+       
        <li class="nav-item">
-        <a class="nav-link" href="salesorder.html">
-          <i class="fa fa-list"></i>
-          <span>Sales Order</span>
+        <a class="nav-link" href="incidentedit.html">
+          <i class="fa fa-edit"></i>
+          <span>Edit Incident</span>
         </a>
        </li>
 
-       <li class="nav-item">
-        <a class="nav-link" href="payment.html">
-          <i class="fa fa-google-wallet"></i>
-          <span>Payment And Aging</span>
-        </a>
-       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -411,18 +376,18 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
         <div class="user-area float-right">
           <div class="account-item clearfix js-item-menu">
               <div class="image">
-                  <img src="images/icon/avatar-01.png" alt="John Doe" />
+                  <img src="images/icon/prod1.png" alt="John Doe" />
               </div>
               <div class="account-dropdown js-dropdown">
                   <div class="info clearfix">
                       <div class="image">
                           <a href="#">
-                              <img src="images/icon/avatar-01.png" alt="John Doe" />
+                              <img src="images/icon/prod1.png" alt="John Doe" />
                           </a>
                       </div>
                       <div class="content">
                           <h5 class="name">
-                              <p id="displayname"></p>
+                     Engineer ID :          <p id="displayname"></p>
                           </h5>
                           <p id="displayemail" class="email"></p>
                       </div>
@@ -442,8 +407,8 @@ displayemail.textContent=`${result.cust_email.toLowerCase()}`;
                       </div>
                   </div>
                   <div class="account-dropdown__footer">
-                      <a href="../landing page.html">
-                          <i class="zmdi zmdi-power"></i>Logout</a>
+                     <a href="" onclick="logout()">
+                          <i class="zmdi zmdi-power" onclick="logout()"></i>Logout</a>
                   </div>
 
         </nav>

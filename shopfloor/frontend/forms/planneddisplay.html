@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Incident Display</title>
+  <title>Display Planned Order</title>
 
   <!-- Custom fonts for this template-->
   <link href="../new/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -81,10 +81,20 @@
                   .then(result => {                      
                       for( i in result.planneddisplay)
                   {                                                                                                                               //data-toggle = "modal" data-target="#exampleModalLong"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                       document.getElementById("inc").innerHTML +='<td class="user">'+ result.planneddisplay[i].porder_id._text +'</td>'   +'<td>' + result.planneddisplay[i].material_id._text   +'</td>'+ '<td>' + result.planneddisplay[i].materialname._text   +'</td>' +'<td>'+ result.planneddisplay[i].plant._text +'</td>'  +'<td>'+ result.planneddisplay[i].mrp._text +'</td>'  +'<td>'+ result.planneddisplay[i].orderstart._text +'</td>'  +'<td>'+ result.planneddisplay[i].orderfinish._text +'</td>' + '<td>'+ result.planneddisplay[i].plndopen._text +'</td>' + '<td>'+ result.planneddisplay[i].quantity._text +'</td>' ;
+                       document.getElementById("inc").innerHTML +='<td>'+'<a href="incidentedit.html"><button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick=""><i id="icon1" class="fa fa-lock fa-edit"></i> Edit </button>' + '</td>'+'<td class="user">'+ result.planneddisplay[i].porder_id._text +'</td>'   +'<td>' + result.planneddisplay[i].material_id._text   +'</td>'+ '<td>' + result.planneddisplay[i].materialname._text   +'</td>' +'<td>'+ result.planneddisplay[i].plant._text +'</td>'  +'<td class = "blu">'+ result.planneddisplay[i].mrp._text +'</td>'  +'<td>'+ result.planneddisplay[i].orderstart._text +'</td>'  +'<td>'+ result.planneddisplay[i].orderfinish._text +'</td>' + '<td>'+ result.planneddisplay[i].plndopen._text +'</td>' + '<td class = "process">'+ result.planneddisplay[i].quantity._text +'</td>' ;
                        
                        
-                      
+                       
+                       $(".btn-sm").click(function () {
+                             var $row = $(this).closest("tr"),
+                                 $tds = $row.find("td:nth-child(2)");
+                              $.each($tds, function () {                                                                     
+                                localStorage.setItem("currentorder",$(this).text());
+                                carrytonextpage();
+                               
+                              });
+                         });
+                   
 
 
                   };
@@ -94,6 +104,13 @@
                   .catch(error => console.log('error', error));
 
       }
+
+      function carrytonextpage() {
+          window.location.href = 'editspecificplanned.html';
+
+        }
+
+
 
   function logout(){
   localStorage.clear();
@@ -169,14 +186,9 @@
       
 
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      
-      <!-- Nav Item - Utilities Collapse Menu -->
-      
-      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="planneddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Planned Order</span>
         </a>
        </li>
@@ -184,21 +196,21 @@
 
        <li class="nav-item">
         <a class="nav-link" href="plannedcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="plannededit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit planned Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="proddisplay.html">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-television"></i>
           <span>Display Production Order</span>
         </a>
        </li>
@@ -206,19 +218,17 @@
 
        <li class="nav-item">
         <a class="nav-link" href="prodcreate.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-clipboard"></i>
           <span>Create Production Order</span>
         </a>
        </li>
 
        <li class="nav-item">
         <a class="nav-link" href="prodedit.html">
-          <i class="fa fa-question-circle"></i>
+          <i class="fa fa-edit"></i>
           <span>Edit Production Order</span>
         </a>
        </li>
-
-
 
 
       <!-- Divider -->
@@ -265,13 +275,21 @@
               <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="blank.html"><i class="fas fa-home"></i></a></li>
                  <li class="breadcrumb-item"><a href="Blank">Dashboard</a></li> 
-                <li class="breadcrumb-item active" aria-current="page">Display Incident</li>
+                <li class="breadcrumb-item active" aria-current="page">Display Planned Order</li>
               </ol>
             </nav>
           </div>
 
 
-
+          <div style="margin-right:200px;">
+            <a href="plannededit.html"><button id="payment-button" type="submit" class="btn btn-primary btn-sm" onclick="">
+              <i id="icon1" class="fa fa-lock fa-edit"></i>&nbsp;
+              <span id="edit1">Edit Details</span>
+               
+          </button>
+         </a>
+        </div>
+  
 
 
 
@@ -461,6 +479,7 @@
                                             <table class="table table-borderless table-data3">
                                               <thead>
                                                 <tr>
+                                                    <th>Details</th>
                                                     <th>Order ID</th>
                                                     <th>Material ID</th>
                                                     <th>Material Name</th>
@@ -468,7 +487,7 @@
                                                     <th>MRP</th>
                                                     <th>Order Start Date</th>
                                                     <th>Order Ended On</th>
-                                                    <th>Planned Open</th> 
+                                                    <th>Plant Open</th> 
                                                     <th>Quantity</th>
                                                                                                                              
                                                 </tr>

@@ -164,7 +164,7 @@ function getinquiry() {
               console.log(result.inquiryresponse[i].QTY._text);
               
              
-               document.getElementById("inq").innerHTML += '<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="getresponse()" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'+ '</td>'+ '<td>'+ result.inquiryresponse[i].INQUIRY_NO._text +'</td>' +'<td>'+ result.inquiryresponse[i].CUST_ID._text +'</td>' +'<td>' +  result.inquiryresponse[i].CUST_PHONENO._text +'</td>' +'<td>'+ result.inquiryresponse[i].QTY._text +'</td>' +'<td>'+ result.inquiryresponse[i].PRODUCT_INQUIRY._text +'</td>'  ;
+               document.getElementById("inq").innerHTML += '<td>'+ '<button id="submitid" type="submit" class="btn btn-primary btn-sm" onclick="getresponse()" data-toggle = "modal" data-target="#exampleModalLong"><i class="fa fa-dot-circle-o"></i> View </button>'+ '</td>'+ '<td>'+ result.inquiryresponse[i].INQUIRY_NO._text +'</td>' +'<td>'+ result.inquiryresponse[i].CUST_ID._text +'</td>' +   '<td>'+'<a href="tel:123-456-7890">' +  result.inquiryresponse[i].CUST_PHONENO._text +'</td>'+ '</a>' +'<td>'+ result.inquiryresponse[i].QTY._text +'</td>' +'<td>'+ result.inquiryresponse[i].PRODUCT_INQUIRY._text +'</td>'  ;
            };
 
       })
