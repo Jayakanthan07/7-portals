@@ -11,8 +11,8 @@ app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-//Validating the credentials data from SAP Ztable ZTA_AUTH_DJ
-
+//Validating the credentials data from SAP Ztable ZTA_AUTH_DJ 
+//zjk_auth
 
 app.post('/login', (req, res) => {
 	console.log("Cust_username,Cust_password");
@@ -85,9 +85,7 @@ app.post('/login', (req, res) => {
 	req1.end();
 });
 
-//displaying the profile data from SAP Ztable Zaddress1_AV
-//PO done by Siva and JK
-//Ztable made by Nallam Sri divya
+//displaying the profile data from SAP Ztable Zjk_cust_profile
 
 app.post('/profile', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -152,9 +150,8 @@ app.post('/profile', (req, res) => {
 });
 
 //Updating the profile data from SAP Ztable Zaddress1_AV
-//PO & Function module done by Dheepak
-//FM_DJ_PROFILE_UPDATE
-//Ztable made by Nallam Sri divya
+//zjk_cust_profile
+
 
 app.post('/updateprofile', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -244,8 +241,7 @@ app.post('/updateprofile', (req, res) => {
 });
 
 //displaying the Invoice data from SAP Ztable Zaddress_AV
-//PO done by Divya and Atachaya
-//Ztable made by Nallam Sri divya
+//zta_profile
 
 app.post('/invoice', (req, res) => {
 	
@@ -331,9 +327,7 @@ app.post('/invoice', (req, res) => {
 
 
 
-//displaying the Credut Memo data from SAP Ztable Z
-//PO done by Divya and Atachaya
-//Ztable made by 
+//displaying the Credut Memo data from SAP Ztable Zcreditmemo
 
 app.post('/credit', (req, res) => {
 	
@@ -422,12 +416,7 @@ app.post('/credit', (req, res) => {
 	req1.end();
 });
 
-//displaying the Payment and Aging details from SAP Ztable Z
-//PO done by Divya and Atachaya
-//Ztable made by 
-//displaying the Payment and Aging details from SAP Zpayment
-//PO done by Divya and Atachaya
-//Ztable made by 
+//displaying the Payment and Aging details from SAP Ztable Zta_payment
 
 app.post('/payment', (req, res) => {
 	
@@ -498,9 +487,8 @@ app.post('/payment', (req, res) => {
 
 	req1.end();
 });
-//displaying the Payment and Aging details from SAP Ztable Z
-//PO done by Divya and Atachaya
-//Ztable made by 
+//displaying the Payment and Aging details from SAP Ztable Zinquiry
+
 app.post('/inquiry', (req, res) => {
 	
 	var options = {
@@ -568,9 +556,8 @@ app.post('/inquiry', (req, res) => {
 
 	req1.end();
 });
-//displaying the Payment and Aging details from SAP Ztable Z
-//PO done by Divya and Atachaya
-//Ztable made by 
+//displaying the Payment and Aging details from SAP Ztable Zta_payment
+
 app.post('/saleorder', (req, res) => {
 	
 	var options = {
@@ -646,8 +633,7 @@ app.post('/saleorder', (req, res) => {
 });
 
 //displaying the Vendor profile data from SAP Ztable ZTA_VEN_PROFILE
-//PO done by Siva
-//Ztable made by Siva
+
 
 app.post('/vendorprofile', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -942,8 +928,7 @@ app.post('/empupdateprofile', (req, res) => {
 
 
 //Creating Employee leave request ZTA_Leave
-//PO done by Siva
-//Ztable made by Siva
+
 
 app.post('/empleaverequest', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -1024,8 +1009,6 @@ app.post('/empleaverequest', (req, res) => {
 //leave display
 
 //displaying the Leave requests of employee from SAP ZTA_LEAVE
-//PO done by Divya and Atachaya
-//Ztable made by Siva
 
 app.post('/empleavedisplay', (req, res) => {
 	
@@ -1101,8 +1084,7 @@ app.post('/empleavedisplay', (req, res) => {
 
 // payslip
 //displaying the Salary Display of employee from SAP ZTA_SALARY
-//PO done by Divya and Atachaya
-//Ztable made by Siva
+
 
 app.post('/emppayslip', (req, res) => {
 	
@@ -1183,8 +1165,7 @@ app.post('/emppayslip', (req, res) => {
 
 //payslip hardwork
 //displaying the Month and year wise Salary Details of employee from SAP ZTA_SALARY
-//PO done by Divya and Atachaya
-//Consumed by JK and Siva
+
 
 app.post('/payslipfilter', (req, res) => {
 	
@@ -1342,9 +1323,7 @@ app.post('/qualitychecklogin', (req, res) => {
 });
 
 
-//displaying the lot inspection details from ZTA_
-//PO done by Siva and JK
-//Consumed by Siva
+//displaying the lot inspection details from ZTA_inspection
 
 app.post('/lotinspection', (req, res) => {
 	
@@ -1409,8 +1388,7 @@ app.post('/lotinspection', (req, res) => {
 
 
 //displaying the LOT result record details from ZTA_LOTRECORD
-//PO done by JK
-//Consumed by Siva
+
 
 app.post('/lotrecord', (req, res) => {
 	
@@ -1624,8 +1602,6 @@ app.post('/incidentdisp', (req, res) => {
 //ehsm create
 
 //Creating EHSM Incident into Ztable ZTA_INCIDENT
-//PO done by Siva
-//Consumed by Siva
 
 app.post('/incidentcreate', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -1789,8 +1765,7 @@ app.post('/incidentdisp2', (req, res) => {
 //incident edittttt
 
 //Editing the current EHSM Incident into Ztable ZTA_INCIDENT
-//PO done by Siva
-//Consumed by Siva
+
 
 app.post('/incidentedit', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -1880,8 +1855,7 @@ app.post('/incidentedit', (req, res) => {
 
 //------------------------------------ SHOP FLOOR PORTAL---------------------------------//
 //Validating the credentials data from SAP Ztable ZTA_MTN_AUTH
-//PO done by Siva
-//Ztable made Siva
+
 //login 
 app.post('/shopfloorlogin', (req, res) => {
 	
@@ -2272,16 +2246,11 @@ app.post('/planneddisp2', (req, res) => {
 
 //production order
 
+
 //<<<<<<<<<<<< Production order >>>>>>>>>>>>>>>//
 
 //Production order display from table ZTA_PRODORDER
-//PO done by Siva
-//Ztable made JK
-//<<<<<<<<<<<< Production order >>>>>>>>>>>>>>>//
 
-//Production order display from table ZTA_PRODORDER
-//PO done by Siva
-//Ztable made JK
 
 app.post('/productiondisp', (req, res) => {
 	
@@ -2573,8 +2542,7 @@ app.post('/prodedit', (req, res) => {
 
 //login
 //Validating the credentials data from SAP Ztable ZTA_MTN_AUTH
-//PO done by Siva
-//Ztable made Siva
+
 
 app.post('/Maintenancelogin', (req, res) => {
 	
@@ -2656,7 +2624,7 @@ app.post('/Maintenancelogin', (req, res) => {
 
 //Maintainance Portal
 //Workorder display from table ZMAINTENANCE_TAB
-//PO done by Nalam And Atchayaa
+
 
 
 
@@ -2874,8 +2842,7 @@ app.post('/workordercreate', (req, res) => {
 });
 
 //Work order edit from table ZMAINTENANCE_TAB
-//PO BY Divya and Atchayaa
-//Consumed by JK
+
 
 
 app.post('/workorderedit', (req, res) => {
@@ -2956,8 +2923,7 @@ app.post('/workorderedit', (req, res) => {
 ////--------------------------------------VENDOR PORTAL------------------------------------//
 //Validating the credentials data from SAP Ztable ZTA_VEN_AUTH
 //Function Module : ZFM_AUTH_VEN
-//PO done by Siva
-//Ztable made Siva
+
 
 app.post('/Vendorlogin', (req, res) => {
 	
@@ -3038,8 +3004,7 @@ app.post('/Vendorlogin', (req, res) => {
 });
 
 //displaying the Vendor profile data from SAP Ztable ZTA_VEN_PROFILE
-//PO done by Siva
-//Ztable made by Siva
+
 
 app.post('/vendorprofile', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -3105,9 +3070,8 @@ app.post('/vendorprofile', (req, res) => {
 });
 
 //Updating the Vendor profile data from SAP Ztable ZTA_VEN_PROFILE
-//PO & Function module done by SIVA
+
 //FM_UPDATE_VPROFILE
-//Ztable made by SIVA
 
 app.post('/updatevendorprofile', (req, res) => {
 	console.log('received token is : ', req.headers.token);
@@ -3209,8 +3173,7 @@ app.post('/updatevendorprofile', (req, res) => {
 });
 
 //displaying the Quotation details from SAP Ztable ZINQUIRY
-//PO done by Divya and Atchayaa
-//Ztable made by Atchayaa
+
 
 app.post('/quotation', (req, res) => {
 	
@@ -3349,8 +3312,7 @@ app.post('/creditvendor', (req, res) => {
 });
 
 //Purchase order display from table ZTA_PLANNEDORDER
-//PO done by Siva
-//Ztable made Siva
+
 
 app.post('/purchaseorder1', (req, res) => {
 	
@@ -3414,8 +3376,7 @@ app.post('/purchaseorder1', (req, res) => {
 });
 
 //Goods receipt display from table ZTA_PRODORDER
-//PO done by Siva
-//Ztable made JK
+
 
 app.post('/goodsreciept', (req, res) => {
 	

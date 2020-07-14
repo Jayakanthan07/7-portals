@@ -1,0 +1,92 @@
+Customer Portal
+
+username:24
+password:jk
+
+Login : Zta_dj_auth
+Profile : Zjk_cust_profile
+Invoice: ZTA_INVOICE
+Payment and aging : ZTA_PAYMENT
+Inquiry : ZINQUIRY
+Sale Order : ZCUSTOMER_SALES
+Credit memo : ZCREDITMEMO
+
+
+
+
+
+Vendor Portal 
+
+username:123456
+password:qwerty
+
+Login : ZTA_VEN_AUTH
+Profile : ZTA_VEN_PROFILE
+quotation: ZTA_QUOTATION
+Purchase Order: ZTA_PURCHASE
+goods : ZTA_GOODS
+Credit memo : ZCREDITMEMO
+
+
+
+
+
+
+
+Employee Portal
+
+username:126
+password:qwerty
+
+Login : ZTA_EMP_AUTH
+Profile : ZTA_EMP_PROFILE
+leave : ZTA_LEAVE
+Salary : ZTA_SALARY
+
+
+
+
+
+Maintenance Portal
+
+username:77
+password:qwerty
+
+Login : ZTA_MTN_AUTH
+Profile : ZTA_MTN_PROFILE
+Workorder : ZMAINTENANCE_TAB
+
+
+
+
+
+
+Shopfloor Portal
+
+username:1
+password:qwerty
+
+Login : ZTA_MTN_AUTH
+planned order : ZTA_PLANNEDORDER
+Production order : ZTA_PRODORDER
+
+
+
+EHSM Portal
+
+username:777
+password:qwerty
+
+Login : ZTA_EHSM_AUTH
+Incident : ZTA_Incident
+
+
+
+Quality Checker Portal
+
+username:7
+password:qwerty
+
+Login : ZTA_QC_AUTH
+LOT display  : ZTA_INSPECTION
+LOT record  : ZTA_LOTRECORD
